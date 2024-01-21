@@ -27,7 +27,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ
 
-ALLOWED_HOSTS = ['webserver']
+ALLOWED_HOSTS = []
 
 RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
 if RENDER_EXTERNAL_HOSTNAME:
@@ -82,7 +82,7 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 DATABASES = {
     'default': dj_database_url.config(
         # Feel free to alter this value to suit your needs.
-        default='postgres://task_manager_database_sf24_user:zXI2NkEWI8ys4gv4qKcUqTfWZU782OFB@dpg-cmme91q1hbls73cfetpg-a/task_manager_database_sf24',
+        default='postgres://task_manager_database_sf24_user:zXI2NkEWI8ys4gv4qKcUqTfWZU782OFB@dpg-cmme91q1hbls73cfetpg-a.oregon-postgres.render.com/task_manager_database_sf24',
         conn_max_age=600
     )
 }
