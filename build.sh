@@ -5,3 +5,4 @@ set -o errexit
 poetry install  --no-root
 
 python manage.py migrate
+poetry run ./manage.py collectstatic
