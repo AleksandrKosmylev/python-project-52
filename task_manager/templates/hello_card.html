@@ -1,8 +1,16 @@
-<div class="card">
+{% load static %}
+<div class="card" xmlns="http://www.w3.org/1999/html">
   <div class="card-body p-5 bg-light">
+    
     <div class="display-4">Привет от Хекслета!</div>
-    <p class="lead">Практические курсы по программированию</p>
-    <hr>
-    <a class="btn btn-primary btn-lg" href="https://ru.hexlet.io">Узнать больше</a>
+      <p class="lead">Практические курсы по программированию</p>
+      <hr>
+      <a class="btn btn-primary btn-lg" href="https://ru.hexlet.io">Узнать больше</a>
+    </div>
+  </div>
+  <div class="container mt-1 mb-1 rounded float-start ">
+      <a  class="card-body p-5 bg-light" href="https://github.com/AleksandrKosmylev/python-project-52">
+        <img  src="{% static "main_page/GitHub-logo.png" %}" alt="Render" class="mw-100">
+      </a>
   </div>
 </div>
