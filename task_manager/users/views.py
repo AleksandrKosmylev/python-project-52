@@ -1,6 +1,14 @@
-# from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render
+from django.views import View
 
 
-def index(request):
-    return HttpResponse('USERS_LIST')
+from task_manager.users.models import Users
+
+
+class IndexView(View):
+
+    def get(self, request, *args, **kwargs):
+        users = Users.objects.all()[:15]
+        return render(request, 'users/users_list.html', context={
+            'users': users,
+        })

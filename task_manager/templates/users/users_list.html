@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+    <h1>Пользователи</h1>
+    {% for user in users %}
+        <h2>{{ user.user_name }} / {{ user.full_name}}</h2>
+    {% endfor %}
+
+      <div class="container-lg mt-3">
+        <h1>Пользователи</h1>
+        <div class="table-responsive">
+          <table class="table table-striped" data-test="users">
+            <thead>
+              <tr class="border">
+                <th>ID</th>
+                <th>Имя пользователя</th>
+                <th>Полное имя</th>
+                <th>Дата создания</th>        
+              <tr>
+            </thead>  
+            <tbody>
+              {% for user in users %}
+              <tr>
+                <td class="fw-normal"></td>
+                <td class="fw-normal">{{ user.user_name }}</td>
+                <td class="fw-normal">{{ user.full_name}}</td>
+                <td class="fw-normal">дата</td>
+              
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table> 
+        </div>
+      </div>
+</body>
+</html>
