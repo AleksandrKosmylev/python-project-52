@@ -5,9 +5,7 @@
     Регистрация
   </h1>
   <form method="post">
-    <!-- 
-    <input type="hidden" name="csrfmiddlewaretoken" value="SN9SVrDb1nwuoxzWjOrUZAwI5eQzo4fXfT8bOcwSSywQivZrSehr7JqIpSvi06nD">
-    -->
+    {% csrf_token %}
     
     <div class="mb-3">
       <label class="form-label" for="id_first_name">Имя</label>
