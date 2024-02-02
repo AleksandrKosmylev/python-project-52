@@ -4,7 +4,6 @@
 {% block content %}
 
       <div class="container-lg mt-3">
-        <h1>Пользователи</h1>
         <div class="table-responsive">
           <table class="table table-striped" data-test="users">
             <thead>
@@ -12,17 +11,23 @@
                 <th>ID</th>
                 <th>Имя пользователя</th>
                 <th>Полное имя</th>
-                <th>Дата создания</th>        
               <tr>
             </thead>  
+            <h1 class="my-4">
+              Статусы
+            </h1>
+            <a class="btn btn-primary mb-3" href="/statuses/create/">Создать статус</a>
             <tbody>
               {% for user in users %}
               <tr>
-                <td class="fw-normal"></td>
+                <td class="fw-normal">{{ user.id }}</td>
                 <td class="fw-normal">{{ user.user_name }}</td>
                 <td class="fw-normal">{{ user.full_name}}</td>
-                <td class="fw-normal">дата</td>
-              
+                <td>
+                  <a href="{% url 'user_update' user.id %}">Изменить </a>
+                  <br>
+                  <a href="{% url 'user_delete' user.id %}">Удалить</a>
+                </td>
               </tr>
               {% endfor %}
             </tbody>

@@ -8,4 +8,4 @@ class Users(models.Model):
     timestamp = models.DateTimeField("time_stamp", auto_now_add=True)
 
     def __str__(self):
-        return self.user_name
+        return self.user_name, self.full_name, self.timestamp
