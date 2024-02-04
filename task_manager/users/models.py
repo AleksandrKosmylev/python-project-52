@@ -1,11 +1,18 @@
 from django.db import models
+from django.forms import PasswordInput
 
 
 # Create your models here.
 class Users(models.Model):
-    user_name = models.CharField('user_name', max_length=255)
-    full_name = models.CharField('full_name', max_length=255)
+    first_name = models.CharField('first_name', max_length=255)
+    last_name = models.CharField('last_name', max_length=255)
+    username = models.CharField('username', max_length=255)
+    username = models.CharField('username', max_length=255)
+    ###PASSWORD CHECK FIELD TYPE###
+    password = models.CharField('password', max_length=255)
+    # password = models.CharField('password', widget=PasswordInput())
+    ###PASSWORD CHECK FIELD TYPE###
     timestamp = models.DateTimeField("time_stamp", auto_now_add=True)
 
     def __str__(self):
-        return self.user_name, self.full_name, self.timestamp
+        return self.user_name,self.last_name, self.full_name

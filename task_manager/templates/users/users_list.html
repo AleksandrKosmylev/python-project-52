@@ -11,6 +11,7 @@
                 <th>ID</th>
                 <th>Имя пользователя</th>
                 <th>Полное имя</th>
+                <th>Дата создания</th>
               <tr>
             </thead>  
             <h1 class="my-4">
@@ -21,8 +22,9 @@
               {% for user in users %}
               <tr>
                 <td class="fw-normal">{{ user.id }}</td>
-                <td class="fw-normal">{{ user.user_name }}</td>
-                <td class="fw-normal">{{ user.full_name}}</td>
+                <td class="fw-normal">{{ user.username}}</td>
+                <td class="fw-normal">{{ user.first_name}} {{ user.last_name}}</td>
+                <td class="fw-normal">{{ user.timestamp }}</td>
                 <td>
                   <a href="{% url 'user_update' user.id %}">Изменить </a>
                   <br>

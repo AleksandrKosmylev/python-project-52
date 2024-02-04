@@ -8,6 +8,6 @@ from .models import Users
 
 @admin.register(Users)
 class UsersAdmin(admin.ModelAdmin):
-    list_display = ('user_name', 'full_name', 'timestamp')
-    search_fields = ['user_name', 'full_name']
+    list_display = ('first_name', 'username', 'timestamp')
+    search_fields = ['first_name', 'username']
     list_filter = (('timestamp', DateFieldListFilter),)
