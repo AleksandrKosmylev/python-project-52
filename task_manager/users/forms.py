@@ -7,10 +7,10 @@ class UsersForm(forms.ModelForm):
     last_name = forms.CharField(max_length=255, required=True)
     username = forms.CharField(max_length=255,  required=True)
     # password = forms.CharField(max_length=255,  required=True)
-    password = forms.CharField(widget=forms.PasswordInput())
-    password_check = forms.CharField(widget=forms.PasswordInput())
+    password1 = forms.CharField(widget=forms.PasswordInput())
+    password2 = forms.CharField(widget=forms.PasswordInput())
 
 
     class Meta:
         model = Users
-        fields = ['first_name', 'last_name', 'username', 'password']
+        fields = ['first_name', 'last_name', 'username', 'password1', 'password2']
