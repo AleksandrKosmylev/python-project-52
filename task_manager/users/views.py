@@ -40,26 +40,16 @@ class UserUpdateView(View):
 
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get('id')
-        print(kwargs, 'kwargs')
-        print(user_id, 'user_id', type(user_id))
         user = Users.objects.get(id=user_id)
-        all = Users.objects.all
-        print(all, 'all')
-        print(user, 'user')
         form = UsersForm(instance=user)
         return render(request, 'users/user_update.html',{'form': form, 'user': user})
 
     def post(self, request, *args, **kwargs):
         user_id = kwargs.get('id')
-        print(user_id, 'user_id_post', type(user_id))
         user = Users.objects.get(id=user_id)
-        print(user, 'user_post', type(user))
         form = UsersForm(request.POST, instance=user)
-        print("after-form")
         if form.is_valid():
             form.save()
-            print(user, 'user_post_after', type(user))
-            print("REDIRECT")
             return redirect('users_index')
         else:
             print("ERRoR")
