@@ -27,7 +27,7 @@ class UserCreateView(View):
             password_check = form.cleaned_data.get("password2")
             if password == password_check:
                 form.save()
-                return redirect('users_index')
+                return redirect('login')
             else:
                 # IN PROCESS (ADD FLASH )
                 return HttpResponse("FAILED. CREATE FLASH FOR IT")
