@@ -59,8 +59,13 @@ class UserUpdateView(View):
 class UserDeleteView(View):
 
 #  GET   deleted  user. but  not  POST  dont UNDERSTAND WHY!!
-
     def get(self, request, *args, **kwargs):
+        user_id = kwargs.get('id')
+        user = Users.objects.get(id=user_id)
+        form = UsersForm(instance=user)
+        return render(request, 'users/user_delete.html', {'form': form, 'user': user})
+
+    def post(self, request, *args, **kwargs):
         user_id = kwargs.get('id')
         user = Users.objects.get(id=user_id)
         if user:
