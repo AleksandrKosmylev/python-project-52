@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from task_manager.users.forms import UsersForm
 from task_manager.users.models import Users
+from django.contrib import messages
 
 
 class IndexView(View):
@@ -27,6 +28,7 @@ class UserCreateView(View):
             password_check = form.cleaned_data.get("password2")
             if password == password_check:
                 form.save()
+                messages.success(request, 'Пользователь успешно зарегистрирован')
                 return redirect('login')
             else:
                 # IN PROCESS (ADD FLASH )

@@ -1,11 +1,36 @@
 {% extends 'layout.html' %}
 {% block content %}
+
+
+  
+<!--
+{% if messages %}
+  <div class="messages">
+  {% for message in messages %}
+    <div class="alert {% if message.tags %}alert-{{ message.tags }}"{% endif %}>
+      {{ message }}
+    </div>
+  {% endfor %}
+  </div>
+{% endif %}
+-->
+  
 <div class="container wrapper flex-grow-1">
+  
+{% if messages %}
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+  {% for message in messages %}
+      {{ message }}
+  {% endfor %}
+  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+{% endif %}
+  
   <h1 class="my-4">
     Вход
   </h1>
-  <form method="post">
-    <input type="hidden" name="csrfmiddlewaretoken" value="3n5oTrASsMxBJ3V5ZGK7VeGG9QJGEn4Fn1x4Hrsp36Gd4uEfEN8MR0tyuGkxfUp7">
+  <form action="{% url 'login' %}" method="post">
+    {% csrf_token %}
     <div class="mb-3">
       <label class="form-label" for="id_username">Имя пользователя</label>
       <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" class="form-control" placeholder="Имя пользователя" required id="id_username">
@@ -15,6 +40,9 @@
       <input type="password" name="password" autocomplete="current-password" class="form-control" placeholder="Пароль" required id="id_password">
     </div>
     <input class="btn btn-primary" type="submit" value="Войти">
+
   </form>
 </div>
 {% endblock %}
+
+
