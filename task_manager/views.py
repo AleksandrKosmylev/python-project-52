@@ -29,6 +29,7 @@ class LoginView(View):
                 else:
                     return HttpResponse('Disabled account')
             else:
+                print('smt wrong')
                 return redirect('login')
         else:
             return HttpResponse('Invalid ')
