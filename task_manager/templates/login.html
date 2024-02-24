@@ -29,9 +29,18 @@
   <h1 class="my-4">
     Вход
   </h1>
+  <p>{{tag}}</p>
+  <!--
+  {% if messages %}
+  <ul class="list-unstyled text-danger">
+      <li>{{ message }}</li>
+  </ul>
+  {% endif %}
+  -->
   <form action="{% url 'login' %}" method="post">
     {% csrf_token %}
     <div class="mb-3">
+            {{username}}
       <label class="form-label" for="id_username">Имя пользователя</label>
       <input type="text" name="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150" class="form-control" placeholder="Имя пользователя" required id="id_username">
     </div>

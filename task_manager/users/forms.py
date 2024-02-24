@@ -1,19 +1,22 @@
 from django import forms
-from task_manager.users.models import Users
 
+
+
+from django.contrib.auth.models import User
 
 class UsersForm(forms.ModelForm):
-    first_name = forms.CharField(max_length=255, required=True)
-    last_name = forms.CharField(max_length=255, required=True)
-    username = forms.CharField(max_length=255,  required=True)
-    # password = forms.CharField(max_length=255,  required=True)
-    password1 = forms.CharField(widget=forms.PasswordInput())
-    password2 = forms.CharField(widget=forms.PasswordInput())
-
+    password1 = forms.CharField(label='Password', widget=forms.PasswordInput)
+    password2 = forms.CharField(label='Repeat password', widget=forms.PasswordInput)
 
     class Meta:
-        model = Users
-        fields = ['first_name', 'last_name', 'username', 'password1', 'password2']
+        model = User
+        fields = ('username', 'first_name', 'last_name')
+
+    def clean_password2(self):
+        cd = self.cleaned_data
+        if cd['password1'] != cd['password2']:
+            raise forms.ValidationError('Passwords don\'t match.')
+        return cd['password2']
 
 class LoginForm(forms.Form):
     username = forms.CharField()
