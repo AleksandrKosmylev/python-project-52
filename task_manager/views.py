@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
 from task_manager.users.forms import UsersForm, LoginForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 
 
@@ -26,7 +26,6 @@ class LoginView(View):
             return HttpResponse('Success')
         else:
             return HttpResponse('Invalid ')
-        
     """
     def post(self, request, *args, **kwargs):
         form = LoginForm(request.POST)
@@ -48,11 +47,19 @@ class LoginView(View):
                                         " Оба поля могут быть чувствительны к регистру.")
                 print('smt wrong')
                 # tag ="Пожалуйста, введите правильные имя пользователя и пароль. Оба поля могут быть чувствительны к регистру."
-                return redirect('login', {"tag":"curwa"})
+                return redirect('login')
         else:
             return HttpResponse('Invalid ')
 
-        
+
+
+def logout_view(request):
+    logout(request)
+    messages.success(request, 'Вы разлогинены')
+    return redirect('index')
+
+
+"""
 # from django.contrib.auth.views import get_user_model
 from django.contrib.auth.models import User
 
@@ -61,8 +68,8 @@ class UserView(View):
         users = User.objects.all()
         print(type(users))
         return HttpResponse(users.date)
-        """
+
         return render(request, 'USER.html', context={
             'user': users,
         })
-        """
+"""

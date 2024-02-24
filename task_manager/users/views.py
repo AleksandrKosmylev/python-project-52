@@ -1,3 +1,6 @@
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
@@ -38,7 +41,9 @@ class UserCreateView(View):
             return redirect('user_create')
 
 
-class UserUpdateView(View):
+class UserUpdateView(LoginRequiredMixin, View):
+    login_url = 'login'
+    # redirect_field_name = 'redirect_to'
 
     def get(self, request, *args, **kwargs):
         print("get delete")
@@ -59,9 +64,8 @@ class UserUpdateView(View):
             print("ERRoR")
         return render(request, 'users/user_update.html',{'form': form, 'user': user})
 
-
-class UserDeleteView(View):
-
+class UserDeleteView(LoginRequiredMixin, View):
+    login_url = 'login'
 
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get('id')
