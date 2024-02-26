@@ -1,9 +1,10 @@
 from django.contrib.auth.decorators import login_required
-from django.utils.decorators import method_decorator
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
+
+from task_manager.users import forms
 from task_manager.users.forms import UsersForm
 # from task_manager.users.models import Users
 from django.contrib.auth import get_user_model
@@ -28,11 +29,14 @@ class UserCreateView(View):
     def post(self, request, *args, **kwargs):
         user_form = UsersForm(request.POST)
         if user_form.is_valid():
-            # Create a new user object but avoid saving it yet
             new_user = user_form.save(commit=False)
-            # Set the chosen password
+            password1 = user_form.cleaned_data['password1']
+            password2 = user_form.cleaned_data['password2']
+            if password1 != password2:
+                print(password1,  password2)
+                messages.warning(request, 'Введенные пароли не совпадают.')
+                return redirect('user_create')
             new_user.set_password(user_form.cleaned_data['password1'])
-            # Save the User object
             new_user.save()
             messages.success(request, 'Пользователь успешно зарегистрирован')
             return redirect('login')
