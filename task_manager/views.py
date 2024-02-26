@@ -13,8 +13,9 @@ def index(request):
 class LoginView(View):
 
     def get(self, request, *args, **kwargs):
-        form = LoginForm()
-        return render(request, 'login.html',{'form': form})
+        # form = LoginForm()
+        # return render(request, 'login.html',{'form': form})
+        return render(request, 'login.html')
     """
     def post(self, request, *args, **kwargs):
         username = request.POST['username']
