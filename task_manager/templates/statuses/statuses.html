@@ -34,9 +34,9 @@
           <td class="fw-normal">{{ status.name}}</td>
           <td class="fw-normal">{{ user.date_joined|date:"d.m.Y H:i" }}</td>
           <td>
-            <a href="#">Изменить</a>
+            <a href="{% url 'status_update' status.id %}">Изменить</a>
             <br>
-            <a href="#">Удалить</a>
+            <a href="{% url 'status_delete' status.id %}">Удалить</a>
           </td>
         </tr>
       {% endfor %}

@@ -33,7 +33,6 @@ class UserCreateView(View):
             password1 = user_form.cleaned_data['password1']
             password2 = user_form.cleaned_data['password2']
             if password1 != password2:
-                print(password1,  password2)
                 messages.warning(request, 'Введенные пароли не совпадают.')
                 return redirect('user_create')
             new_user.set_password(user_form.cleaned_data['password1'])
@@ -46,15 +45,11 @@ class UserCreateView(View):
 
 
 class UserUpdateView(LoginRequiredMixin, View):
-    login_url = 'login'
-    # redirect_field_name = 'redirect_to'
 
     def get(self, request, *args, **kwargs):
-        print("get delete")
         user_id = kwargs.get('id')
         user = Users.objects.get(id=user_id)
-        form = UsersForm(instance=user)
-        return render(request, 'users/user_update.html',{'form': form, 'user': user})
+        return render(request, 'users/user_update.html',{'user': user})
 
     def post(self, request, *args, **kwargs):
         user_id = kwargs.get('id')
@@ -65,17 +60,14 @@ class UserUpdateView(LoginRequiredMixin, View):
             messages.success(request, 'Пользователь успешно изменен')
             return redirect('users_index')
         else:
-            print("ERRoR")
+            return HttpResponse("Error form")
         return render(request, 'users/user_update.html',{'form': form, 'user': user})
 
 class UserDeleteView(LoginRequiredMixin, View):
-    login_url = 'login'
 
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get('id')
-        print(user_id, 'user_id')
         user = Users.objects.get(id=user_id)
-        print(user, 'user')
         return render(request, 'users/user_delete.html', {'user': user})
 
     def post(self, request, *args, **kwargs):
@@ -83,5 +75,6 @@ class UserDeleteView(LoginRequiredMixin, View):
         user = Users.objects.get(id=user_id)
         if user:
             user.delete()
-        messages.success(request, 'Пользователь успешно удален')
-        return redirect('users_index')
+            messages.success(request, 'Пользователь успешно удален')
+            return redirect('users_index')
+        return HttpResponse("DELETE USER FAILED. CREATE FLASH FOR IT")
