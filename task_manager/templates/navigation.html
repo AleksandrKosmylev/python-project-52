@@ -6,7 +6,7 @@
       <li><a href="/" class="nav-link px-3 text-secondary">Менеджер задач</a></li>
       <li><a href="{% url 'users_index' %}" class="nav-link px-3 text-white">Пользователи</a></li>
       {% if request.user.is_authenticated %}
-        <li><a href="{% url 'main_statuses' %}" class="nav-link px-3 text-white">Статусы</a></li>
+        <li><a href="{% url 'statuses' %}" class="nav-link px-3 text-white">Статусы</a></li>
         <li><a href="{% url 'logout' %}" class="nav-link px-3 text-white">Выход</a></li>
       {% endif %}
     </ul>

@@ -17,7 +17,7 @@
     Статусы
   </h1>
       
-  <a class="btn btn-primary mb-3" href="/statuses/create/">Создать статус</a>
+  <a class="btn btn-primary mb-3" href="{% url 'status_create' %}">Создать статус</a>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -31,12 +31,12 @@
       {% for status in statuses %}
         <tr>
           <td class="fw-normal">{{ status.id }}</td>
-          <td class="fw-normal">{{ status.username}}</td>
+          <td class="fw-normal">{{ status.name}}</td>
           <td class="fw-normal">{{ user.date_joined|date:"d.m.Y H:i" }}</td>
           <td>
-            <a href="{% url 'status_update' user.id %}">Изменить</a>
+            <a href="#">Изменить</a>
             <br>
-            <a href="{% url 'status_delete' user.id %}">Удалить</a>
+            <a href="#">Удалить</a>
           </td>
         </tr>
       {% endfor %}
