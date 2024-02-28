@@ -29,6 +29,7 @@ class UserCreateView(View):
     def post(self, request, *args, **kwargs):
         user_form = UsersForm(request.POST)
         if user_form.is_valid():
+            # print(user_form.cleaned_data['first_name'], "userform!")
             new_user = user_form.save(commit=False)
             password1 = user_form.cleaned_data['password1']
             password2 = user_form.cleaned_data['password2']
@@ -38,8 +39,10 @@ class UserCreateView(View):
             new_user.set_password(user_form.cleaned_data['password1'])
             new_user.save()
             messages.success(request, 'Пользователь успешно зарегистрирован')
+            # print("success")
             return redirect('login')
         else:
+            print(user_form.errors.as_data(), 'errors')
             return HttpResponse("FAILED. CREATE FLASH FOR IT")
             return redirect('user_create')
 

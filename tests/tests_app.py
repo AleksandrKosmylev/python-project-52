@@ -31,6 +31,7 @@ class UsersTest(TestCase):
             User.objects.get(pk=self.user.pk)
 """
 
+
 class ClientCreateTest(unittest.TestCase):
     def setUp(self):
         self.client = Client()
@@ -40,12 +41,17 @@ class ClientCreateTest(unittest.TestCase):
             'first_name': 'test_first_name',
             'last_name': 'test_last_name',
             'username': 'test_username',
-            "password": 'password',
+            "password1": 'password',
             "password2": 'password'
         }
 
-        # self.client.get('/users/create/', data=data)
-        # response = self.client.post('/users/create/')
-        response = self.client.post('/users/create/', data=data)
-        print(response.status_code, 'response code', response.content)
+        user = User.objects.get(first_name='test_first_name')
+        user.delete()
+
+        response = self.client.post('/users/create/', data=data, follow=True)
+        # Check if response works properly
         self.assertEqual(response.status_code, 200)
+        # Check if response redirect to  proper url
+        self.assertEqual(response.redirect_chain, [('/login/', 302)])
+        # Check if user added to database
+        self.assertEqual(user.username, data['username'])
