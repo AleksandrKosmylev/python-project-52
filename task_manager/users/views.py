@@ -58,12 +58,16 @@ class UserUpdateView(LoginRequiredMixin, View):
         user_id = kwargs.get('id')
         user = Users.objects.get(id=user_id)
         form = UsersForm(request.POST, instance=user)
+        print("in it")
         if form.is_valid():
             form.save()
+            print(form.errors.as_data(), 'errors1')
             messages.success(request, 'Пользователь успешно изменен')
             return redirect('users_index')
         else:
+            print(form.errors.as_data(), 'errors2')
             return HttpResponse("Error form")
+        print(form.errors.as_data(), 'errors3')
         return render(request, 'users/user_update.html',{'form': form, 'user': user})
 
 class UserDeleteView(LoginRequiredMixin, View):

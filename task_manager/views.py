@@ -16,18 +16,6 @@ class LoginView(View):
         # form = LoginForm()
         # return render(request, 'login.html',{'form': form})
         return render(request, 'login.html')
-    """
-    def post(self, request, *args, **kwargs):
-        username = request.POST['username']
-        password = request.POST['password']
-        print(username, password, "user", 'passw')
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return HttpResponse('Success')
-        else:
-            return HttpResponse('Invalid ')
-    """
     def post(self, request, *args, **kwargs):
         form = LoginForm(request.POST)
         if form.is_valid():
