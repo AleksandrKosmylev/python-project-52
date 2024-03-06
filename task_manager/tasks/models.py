@@ -12,4 +12,4 @@ class Task(models.Model):
     status = models.ForeignKey(Status, models.SET_NULL, blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return self.name, self.description, self.executor, self.status

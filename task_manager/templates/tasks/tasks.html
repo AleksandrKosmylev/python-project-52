@@ -20,13 +20,11 @@
   <div class="card-body bg-light">
     <form class="form-inline center" method="get">
       <div class="mb-3"><label class="form-label" for="id_status">Статус</label>
-        
         <select name="status" class="form-select" id="id_status">
           {% for status in statuses %}
           <option value="{{status.name}}">{{status.name}}</option>
           {% endfor %}
          </select>
-
       </div>
       
       <div class="mb-3">
@@ -75,16 +73,16 @@
     <tr>
       <td>{{task.id}}</td>
       <td>
-        <a href="#">{{task.name}}</a>
+        <a href="{% url 'task_card' task.id %}">{{task.name}}</a>
       </td>
       <td>{{task.status}}</td>
       <td>{{task.executor.username}}</td>
       <td>{{task.executor.first_name}} {{task.executor.last_name}}</td>
       <td>{{task.timestamp}}</td>
       <td>
-        <a href="/tasks/1/update/">Изменить</a>
+        <a href="{% url 'task_update' id=task.id%}">Изменить</a>
         <br>
-        <a href="/tasks/1/delete/">Удалить</a>
+        <a href="#/">Удалить</a>
       </td>
     </tr>
     {% endfor %}

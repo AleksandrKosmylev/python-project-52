@@ -5,7 +5,7 @@
   <h1 class="my-4">
         Изменение статуса
   </h1>
-            <form action="{% url 'status_update' id=status.id%}" method="post">
+  <form action="{% url 'status_update' id=status.id%}" method="post">
     {% csrf_token %}
     <div class="mb-3">
       <label class="form-label" for="id_name">Имя</label>
