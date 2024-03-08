@@ -2,7 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 from task_manager.statuses.models import Status
 
-# Create your models here.
 
 class Task(models.Model):
     name = models.CharField('name', max_length=255)
