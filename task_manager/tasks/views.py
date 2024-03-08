@@ -57,3 +57,20 @@ class TaskUpdateView(View):
         else:
             return HttpResponse("Error form")
         return render(request, 'tasks/task_update.html', {'form': form})
+
+
+class TaskDeleteView(View):
+
+    def get(self, request, **kwargs):
+        task_id = kwargs.get('id')
+        task = Task.objects.get(id=task_id)
+        return render(request, 'tasks/task_delete.html', {'task': task})
+
+    def post(self, request, **kwargs):
+        task_id = kwargs.get('id')
+        task = Task.objects.get(id=task_id)
+        if task:
+            task.delete()
+            messages.success(request, 'Задача успешно удалена')
+            return redirect('tasks')
+        return HttpResponse("DELETE USER FAILED. CREATE FLASH FOR IT")
