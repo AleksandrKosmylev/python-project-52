@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from task_manager.statuses.models import Status
+from task_manager.labels.models import Labels
 
 
 class Task(models.Model):
@@ -9,6 +10,14 @@ class Task(models.Model):
     timestamp = models.DateTimeField("time_stamp", auto_now_add=True)
     executor = models.ForeignKey(User, on_delete=models.CASCADE)
     status = models.ForeignKey(Status, models.SET_NULL, blank=True, null=True)
+    # labels = models.ForeignKey(Labels, models.SET_NULL, blank=True, null=True)
+    labels = models.ManyToManyField(Labels)
 
     def __str__(self):
-        return self.name, self.description, self.executor, self.status
+        return '{} {} {} {} {}'.format(
+            self.name, self.description, self.executor, self.status, self.labels)
+
+    """
+        def __str__(self):
+            return self.name, self.description, self.executor, self.status, self.labels
+    """

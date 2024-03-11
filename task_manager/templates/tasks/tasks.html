@@ -39,8 +39,9 @@
       <div class="mb-3">
         <label class="form-label" for="id_label">Метка</label>
         <select name="label" class="form-select" id="id_label">
-          <option value="#">#</option>
-
+          {% for label in labels %}
+          <option value="{{label.name}}" selected="">{{label.name}}</option>
+          {% endfor %}
         </select>
       </div>
       
@@ -78,7 +79,7 @@
       <td>{{task.status}}</td>
       <td>{{task.executor.username}}</td>
       <td>{{task.executor.first_name}} {{task.executor.last_name}}</td>
-      <td>{{task.timestamp}}</td>
+      <td>{{task.timestamp|date:"d.m.Y H:i"}}</td>
       <td>
         <a href="{% url 'task_update' id=task.id%}">Изменить</a>
         <br>
