@@ -30,18 +30,39 @@ class TaskCreateView(View):
         statuses = Status.objects.all()
         users = User.objects.all()
         labels = Labels.objects.all()
-        print(labels , "lebels_create_get")
+        print(labels, "lebels_create_get")
         return render(request, 'tasks/task_create.html', {
             'statuses': statuses, 'users': users, 'labels': labels})
 
     def post(self, request):
-        task_form = TaskForm(request.POST)
-        if task_form.is_valid():
+        form = TaskForm(request.POST)
+        if form.is_valid():
+   
+            task_form = form.save(commit=False)
+            """
+            print(request.POST['name'], 'request.name')
+            print(request.POST['description'], 'request.description')
+            print(request.POST['status'], 'request.status')
+            print(request.POST['executor'], 'request.executor')
+            print(request.POST['labels'], 'request.labels')
+            # print(request.POST)
+
+            task_form.name = request.POST['name']
+            task_form.description = request.POST['description']
+            task_form.status = request.POST['status']
+            task_form.executor = request.POST['executor']
+            task_form.labels = request.POST['labels']
+
             task_form.save()
-            print(task_form.cleaned_data, 'data_create')
+            form.save_m2m()
+        """
+            task_form.save()
+            form.save_m2m()
+            # print(form.cleaned_data, 'data_create')
             messages.success(request, 'Задача успешно создана')
             return redirect('tasks')
         else:
+            print(form.errors.as_data(), 'errors')
             return HttpResponse("TASKS FAILED. CREATE FLASH FOR IT")
 
 
@@ -59,8 +80,10 @@ class TaskUpdateView(View):
         task_id = kwargs.get('id')
         task = Task.objects.get(id=task_id)
         task_form = TaskForm(request.POST, instance=task)
+
         if task_form.is_valid():
-            task_form.save()
+            task_form.save(commit=False)
+            task_form.save_m2m()
             print(task_form.cleaned_data, 'data_update')
             messages.success(request, 'Задача успешно изменена')
             return redirect('tasks')
