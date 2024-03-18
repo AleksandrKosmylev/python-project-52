@@ -5,7 +5,8 @@ from task_manager.labels.models import Labels
 
 
 class Task(models.Model):
-    name = models.CharField('name', max_length=255)
+    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='author' )
+    name = models.CharField('name', max_length=255, unique=True)
     description = models.CharField('description', max_length=255)
     timestamp = models.DateTimeField("time_stamp", auto_now_add=True)
     executor = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -14,8 +15,8 @@ class Task(models.Model):
     labels = models.ManyToManyField(Labels)
 
     def __str__(self):
-        return '{} {} {} {} {}'.format(
-            self.name, self.description, self.executor, self.status, self.labels)
+        return '{} {} {} {} {} {}'.format(
+            self.author, self.name, self.description, self.executor, self.status, self.labels)
 
     """
         def __str__(self):

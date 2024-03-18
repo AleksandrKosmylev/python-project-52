@@ -18,6 +18,7 @@ def main_tasks(request):
 
 
 def show_task_card(request, **kwargs):
+    print(request.user.id, "зарнегистрированный пользователь")
     task_id = kwargs.get('id')
     task = Task.objects.get(id=task_id)
     print(task, 'all objects')
@@ -25,6 +26,7 @@ def show_task_card(request, **kwargs):
 
 
 class TaskCreateView(View):
+
 
     def get(self, request):
         statuses = Status.objects.all()
@@ -34,37 +36,84 @@ class TaskCreateView(View):
         return render(request, 'tasks/task_create.html', {
             'statuses': statuses, 'users': users, 'labels': labels})
 
+    """
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["logged_in_user"] = self.request.user
+        return kwargs
+
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.author = form.logged_in_user
+        self.object.save()
+        form._save_m2m()
+        return super().form_valid(form)
+
+
+"""
     def post(self, request):
+
+        author_user = request.user
+        print(author_user, "зарегистрированный пользователь")
         form = TaskForm(request.POST)
+        a1 = form["name"].value()
+        a2 = form["description"].value()
+        a3 = form["executor"].value()
+        a4 = form["status"].value()
+        a5 = form["labels"].value()
+        print(a1, a2, a3, a4, a5, "before_valid")
         if form.is_valid():
-   
-            task_form = form.save(commit=False)
-            """
-            print(request.POST['name'], 'request.name')
-            print(request.POST['description'], 'request.description')
-            print(request.POST['status'], 'request.status')
-            print(request.POST['executor'], 'request.executor')
-            print(request.POST['labels'], 'request.labels')
-            # print(request.POST)
+            name = form.cleaned_data['name']
+            description = form.cleaned_data['description']
+            executor = form.cleaned_data['executor']
+            status = form.cleaned_data['status']
+            labels = form.cleaned_data['labels']
+            obj = Task(author=author_user, name=name, description=description, executor=executor, status=status,
+                       # labels =labels
+                       )
+            # obj.labels.set(1)
+            obj.save()
+            task_form = TaskForm(request.POST, instance=obj)
+            task_form.labels = labels
+            # task_form.save(commit=False)
+            task_form.save()
+            # form.save_m2m()
+        new_task = Task.objects.get(name=a1)
+        # new_task.labels.add(2)
+        add_lebels = task_form.labels
+        for i in add_lebels:
+            new_task.labels.add(i)
+            new_task.save()
+        print(new_task, '33new_task33')
+        return redirect('tasks')
 
-            task_form.name = request.POST['name']
-            task_form.description = request.POST['description']
-            task_form.status = request.POST['status']
-            task_form.executor = request.POST['executor']
-            task_form.labels = request.POST['labels']
 
+"""
+        if form.is_valid():
+            print('curwa')
+            x = form.cleaned_data
+            print(x, 'XXX')
+            #ctask_form = form.save(commit=False)
+            # print(task_form.cleaned_data(), "cleaned data")
+            #print(self.object.author, 'self.author')
+            # self.object.author = self.request.user.id
+            # task_form.save()
+            form.save_m2m()
+            # return super().form_valid(form)
+
+            # Task.author = user
+            self.author = self.request.user
             task_form.save()
             form.save_m2m()
-        """
-            task_form.save()
-            form.save_m2m()
+
             # print(form.cleaned_data, 'data_create')
             messages.success(request, 'Задача успешно создана')
             return redirect('tasks')
         else:
             print(form.errors.as_data(), 'errors')
             return HttpResponse("TASKS FAILED. CREATE FLASH FOR IT")
-
+        """
 
 class TaskUpdateView(View):
 

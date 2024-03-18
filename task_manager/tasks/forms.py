@@ -9,7 +9,7 @@ class TaskForm(forms.ModelForm):
 
     class Meta:
         model = Task
-        fields = ['name', 'description', 'executor', 'status']
+        fields = ['name', 'description', 'executor', 'status', 'labels']
 
 """
     executor = forms.ModelForm (queryset=User.objects.all())
