@@ -6,6 +6,16 @@ from django.contrib.auth.models import User
 from task_manager.tasks.forms import TaskForm
 from django.views import View
 from django.contrib import messages
+from django.urls import reverse_lazy
+from django.contrib.messages.views import SuccessMessageMixin
+from django.utils.translation import gettext_lazy as _
+
+from django.views.generic import (
+    CreateView,
+    UpdateView,
+    DeleteView,
+    DetailView,
+)
 
 
 def main_tasks(request):
@@ -25,32 +35,26 @@ def show_task_card(request, **kwargs):
     return render(request, 'tasks/task_card.html', {'task': task})
 
 
-class TaskCreateView(View):
+class TaskCreateView(SuccessMessageMixin, CreateView):
+    model = Task
+    form_class = TaskForm
+    template_name = 'to_do_form'
+    success_url = reverse_lazy('tasks:tasks')
+    success_message = _("Task successfully created") # нужно  перевести
 
 
-    def get(self, request):
-        statuses = Status.objects.all()
-        users = User.objects.all()
-        labels = Labels.objects.all()
-        print(labels, "lebels_create_get")
-        return render(request, 'tasks/task_create.html', {
-            'statuses': statuses, 'users': users, 'labels': labels})
-
-    """
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs["logged_in_user"] = self.request.user
+        kwargs["logged_in_user"] = self.request.user # c авторизацией
         return kwargs
 
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.author = form.logged_in_user
+        self.object.author = form.logged_in_user # from string 48
         self.object.save()
         form._save_m2m()
         return super().form_valid(form)
-
-
 """
     def post(self, request):
 
@@ -89,7 +93,7 @@ class TaskCreateView(View):
         return redirect('tasks')
 
 
-"""
+
         if form.is_valid():
             print('curwa')
             x = form.cleaned_data
@@ -113,8 +117,8 @@ class TaskCreateView(View):
         else:
             print(form.errors.as_data(), 'errors')
             return HttpResponse("TASKS FAILED. CREATE FLASH FOR IT")
-        """
 
+    """
 class TaskUpdateView(View):
 
     def get(self, request, **kwargs):
