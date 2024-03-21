@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractUser
+from django.urls import reverse
+
 """
 # Create your models here.
 # class Users(models.Model):
@@ -12,4 +15,10 @@ class Users(models.Model):
 
     def __str__(self):
         return self.username
+"""
+""""
+class User(AbstractUser):
+    
+    def get_absolute_url(self):
+        return reverse('user_update', kwargs={'id': self.id})
 """

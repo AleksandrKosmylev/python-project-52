@@ -6,6 +6,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 # new edit
 from django.views.generic import TemplateView
+from django.contrib.auth.views import LoginView
+from django.contrib.messages.views import SuccessMessageMixin
+from django.utils.translation import gettext_lazy as _
+from django.urls import reverse_lazy
+from django.contrib.auth.forms import AuthenticationForm
 
 """
 def index(request):
@@ -14,6 +19,14 @@ def index(request):
 class IndexView(TemplateView):
     template_name = 'index.html'
 
+"""
+class LoginView(SuccessMessageMixin, LoginView):
+    # authentication_form = LoginForm
+    form_class = AuthenticationForm
+    template_name = 'login.html'
+    success_url = reverse_lazy('index')
+    success_message = _('Successfully logged in!')
+"""
 class LoginView(View):
 
     def get(self, request, *args, **kwargs):
@@ -65,4 +78,5 @@ class UserView(View):
         return render(request, 'USER.html', context={
             'user': users,
         })
+
 """
