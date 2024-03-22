@@ -3,20 +3,23 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
+from django.views.generic.edit import DeletionMixin
+
 from task_manager.users.forms import UsersForm
 # from task_manager.users.models import Users
 from django.contrib.auth import get_user_model
 from django.contrib import messages
 # edited ->
-from django.views.generic import ListView, CreateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.models import User
 from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
+from task_manager.users.models import CustomUser
 # from task_manager.users.models import Users
 
-Users = get_user_model()
+# Users = get_user_model()
 """
 class IndexView(View):
 
@@ -27,16 +30,8 @@ class IndexView(View):
         })
 """
 class IndexView(ListView):
-
-
-    def get_absolute_url(self):
-        return reverse('user_update', kwargs={'id': self.id})
-
-    model = Users
-    ordering = ['id']
+    model = CustomUser
     template_name = 'users/users_list.html'
-    success_url = reverse_lazy('login')
-    success_message = _('Successfully registered!')
 
 """
 class UserCreateView(View):
@@ -65,24 +60,24 @@ class UserCreateView(View):
             return redirect('user_create')
 """
 class UserCreateView(SuccessMessageMixin, CreateView):
-    model = Users
+    model = CustomUser
     form_class = UsersForm
-    template_name = 'users/user_create.html'
-    
-    
-    
+    template_name = 'users/user_form.html'
+    success_url = reverse_lazy('index')
+    # success_url = reverse_lazy('login')
+    success_message = _('Successfully registered!')
 
-
+"""
 class UserUpdateView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get('id')
-        user = Users.objects.get(id=user_id)
+        user = CustomUser.objects.get(id=user_id)
         return render(request, 'users/user_update.html',{'user': user})
 
     def post(self, request, *args, **kwargs):
         user_id = kwargs.get('id')
-        user = Users.objects.get(id=user_id)
+        user = CustomUser.objects.get(id=user_id)
         form = UsersForm(request.POST, instance=user)
         print("in it")
         if form.is_valid():
@@ -93,20 +88,39 @@ class UserUpdateView(LoginRequiredMixin, View):
             print(form.errors.as_data(), 'errors2')
             return HttpResponse("Error form")
         return render(request, 'users/user_update.html',{'form': form, 'user': user})
+"""
+class UserUpdateView(SuccessMessageMixin, UpdateView):
+    model = CustomUser
+    form_class = UsersForm
+    template_name = 'users/user_form.html'
+    success_url = reverse_lazy('index')
+    success_message = _('Successfully updated!')
 
 
+class UserDeleteView(SuccessMessageMixin, DeleteView):
+    model = CustomUser
+    template_name = 'users/user_delete.html'
+    success_url = reverse_lazy('users_index')
+    success_message = _("Product successfully deleted!")
+"""
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+"""
+
+"""
 class UserDeleteView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
         user_id = kwargs.get('id')
-        user = Users.objects.get(id=user_id)
+        user = CustomUser.objects.get(id=user_id)
         return render(request, 'users/user_delete.html', {'user': user})
 
     def post(self, request, *args, **kwargs):
         user_id = kwargs.get('id')
-        user = Users.objects.get(id=user_id)
+        user = CustomUser.objects.get(id=user_id)
         if user:
             user.delete()
             messages.success(request, 'Пользователь успешно удален')
             return redirect('users_index')
         return HttpResponse("DELETE USER FAILED. CREATE FLASH FOR IT")
+"""

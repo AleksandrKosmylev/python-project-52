@@ -16,9 +16,17 @@ class Users(models.Model):
     def __str__(self):
         return self.username
 """
-""""
-class User(AbstractUser):
-    
+
+
+class CustomUser(AbstractUser):
+
+    class Meta:
+        ordering = ["id"]
+
+    def __str__(self):
+        return self.username
+
+    # may cause problem because of usage id instead pk
     def get_absolute_url(self):
-        return reverse('user_update', kwargs={'id': self.id})
-"""
+        # return reverse('user_update', kwargs={'pk': self.pk})
+        return reverse('users:index')

@@ -94,7 +94,8 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://task_manager_database_sf24_user:zXI2NkEWI8ys4gv4qKcUqTfWZU782OFB@dpg-cmme91q1hbls73cfetpg-a.oregon-postgres.render.com/task_manager_database_sf24',
+        # default='postgres://task_manager_database_sf24_user:zXI2NkEWI8ys4gv4qKcUqTfWZU782OFB@dpg-cmme91q1hbls73cfetpg-a.oregon-postgres.render.com/task_manager_database_sf24',
+        default='postgres://extra_task_manager_database_user:bLVrmseZZmuC1CxJrHRrcosCah81zw90@dpg-cnu0h0cf7o1s73e9ufu0-a.oregon-postgres.render.com/extra_task_manager_database',
         conn_max_age=600
     )
 }
@@ -116,6 +117,10 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+# User model
+
+AUTH_USER_MODEL = 'users.CustomUser'
 
 
 # Internationalization
