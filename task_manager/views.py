@@ -1,12 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
-from task_manager.users.forms import UsersForm, LoginForm
+from task_manager.users.forms import UsersForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 # new edit
 from django.views.generic import TemplateView
-from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.messages.views import SuccessMessageMixin
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse_lazy
@@ -19,13 +19,11 @@ def index(request):
 class IndexView(TemplateView):
     template_name = 'index.html'
 
-"""
+
 class LoginView(SuccessMessageMixin, LoginView):
-    # authentication_form = LoginForm
-    form_class = AuthenticationForm
     template_name = 'login.html'
-    success_url = reverse_lazy('index')
     success_message = _('Successfully logged in!')
+
 """
 class LoginView(View):
 
@@ -56,14 +54,19 @@ class LoginView(View):
                 return redirect('login')
         else:
             return HttpResponse('Invalid ')
+"""
 
+class Logout(SuccessMessageMixin, LogoutView):
+    http_method_names = ['post']
+    success_url = reverse_lazy('index')
+    success_message = _('Successfully logged out!')
 
-
+"""
 def logout_view(request):
     logout(request)
     messages.success(request, 'Вы разлогинены')
     return redirect('index')
-
+"""
 
 """
 # from django.contrib.auth.views import get_user_model

@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
@@ -17,7 +18,10 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 from task_manager.users.models import CustomUser
+from django.contrib.auth.views import LoginView, LogoutView
 # from task_manager.users.models import Users
+from task_manager.mixins import CustomLoginRequiredMixin
+from task_manager.users.mixins import AccessCheck
 
 # Users = get_user_model()
 """
@@ -63,8 +67,7 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     model = CustomUser
     form_class = UsersForm
     template_name = 'users/user_form.html'
-    success_url = reverse_lazy('index')
-    # success_url = reverse_lazy('login')
+    success_url = reverse_lazy('login')
     success_message = _('Successfully registered!')
 
 """
@@ -89,15 +92,15 @@ class UserUpdateView(LoginRequiredMixin, View):
             return HttpResponse("Error form")
         return render(request, 'users/user_update.html',{'form': form, 'user': user})
 """
-class UserUpdateView(SuccessMessageMixin, UpdateView):
+class UserUpdateView(CustomLoginRequiredMixin, AccessCheck, SuccessMessageMixin, UpdateView):
     model = CustomUser
     form_class = UsersForm
     template_name = 'users/user_form.html'
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('users_index')
     success_message = _('Successfully updated!')
 
 
-class UserDeleteView(SuccessMessageMixin, DeleteView):
+class UserDeleteView(CustomLoginRequiredMixin,SuccessMessageMixin, DeleteView):
     model = CustomUser
     template_name = 'users/user_delete.html'
     success_url = reverse_lazy('users_index')
@@ -124,3 +127,5 @@ class UserDeleteView(LoginRequiredMixin, View):
             return redirect('users_index')
         return HttpResponse("DELETE USER FAILED. CREATE FLASH FOR IT")
 """
+
+

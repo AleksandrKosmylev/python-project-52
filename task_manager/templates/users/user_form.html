@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% load django_bootstrap5 %}
+{% load i18n %}
+{% block content %}
+
+    <h2 class="mt-3">{% if request.path == '/users/create/'%}{% translate "Registration" %}
+        {% else %}{% translate "Update user" %} {% endif %}
+    </h2>
+    <form method="post">
+        {% csrf_token %}
+        {% bootstrap_form form %}
+        {% block button_value %}
+            {% if request.path == "/users/create/"%}
+                <input class="btn btn-primary" type="submit"  value='{% translate "Register" %}'>
+            {% else %}
+                <input class="btn btn-primary" type="submit"  value='{% translate "Update" %}'>
+            {% endif %}
+        {% endblock %}
+    </form>
+
+{% endblock %}
