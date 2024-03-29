@@ -1,4 +1,7 @@
 {% extends 'layout.html' %}
+{% load django_bootstrap5 %}
+{% load i18n %}
+
 {% block content %}
 
 {% if messages %}
@@ -25,21 +28,20 @@
       </tr>
     </thead>
     <tbody>
-      {% for label in labels %}
+      {% for labels_data in labels_list %}
       <tr>
-        <td class="fw-normal">{{ label.id }}</td>
-        <td class="fw-normal">{{ label.name}}</td>
-        <td class="fw-normal">{{ label.timestamp|date:"d.m.Y H:i"}}</td>
+        <td class="fw-normal">{{ labels_data.id }}</td>
+        <td class="fw-normal">{{ labels_data.name}}</td>
+        <td class="fw-normal">{{ labels_data.timestamp|date:"d.m.Y H:i"}}</td>
         <td>
-          <a href="{% url 'label_update' label.id %}">Изменить </a>
+          <a href="{% url 'label_update' labels_data.id %}">Изменить </a>
           <br>
-          <a href="{% url 'label_delete' label.id %}">Удалить</a>
+          <a href="{% url 'label_delete' labels_data.id %}">Удалить</a>
         </td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
-
 </div>
 
 
