@@ -5,6 +5,6 @@ from task_manager.statuses.views import StatusView, StatusCreateView, StatusUpda
 urlpatterns = [
     path('', StatusView.as_view(), name='statuses'),
     path('create/', StatusCreateView.as_view(), name='status_create'),
-    path('<int:id>/update/', StatusUpdateView.as_view(), name='status_update'),
-    path('<int:id>/delete/', StatusDeleteView.as_view(), name='status_delete'),
+    path('<int:pk>/update/', StatusUpdateView.as_view(), name='status_update'),
+    path('<int:pk>/delete/', StatusDeleteView.as_view(), name='status_delete'),
 ]

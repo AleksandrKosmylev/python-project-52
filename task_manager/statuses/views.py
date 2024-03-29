@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
+from task_manager.users.mixins import AccessCheck
 from task_manager.mixins import CustomLoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
@@ -25,7 +26,11 @@ class StatusCreateView(CustomLoginRequiredMixin, SuccessMessageMixin, CreateView
     model = Status
     form_class = StatusForm
     template_name = 'form.html'
-    success_url = reverse_lazy('statuses/statuses.html')
+    extra_context = {
+        'title': _('Create status'),
+        'btn_text': _('Create'),
+        'btn_class': 'btn-primary'}
+    success_url = reverse_lazy('statuses')
     success_message = _('Status successfully added!')
 
 """
@@ -43,7 +48,17 @@ class StatusCreateView(View):
         else:
             return HttpResponse("STATUSES FAILED. CREATE FLASH FOR IT")
 """
-
+class StatusUpdateView(CustomLoginRequiredMixin, SuccessMessageMixin, UpdateView):
+    model = Status
+    form_class = StatusForm
+    template_name = 'form.html'
+    extra_context = {
+        'title': _('Update status'),
+        'btn_text': _('Update'),
+        'btn_class': 'btn-primary'}
+    success_url = reverse_lazy('statuses')
+    success_message = _('Status successfully update!')
+"""
 class StatusUpdateView(LoginRequiredMixin, View):
 
     def get(self, request, *args, **kwargs):
@@ -60,7 +75,19 @@ class StatusUpdateView(LoginRequiredMixin, View):
             messages.success(request, 'Статус успешно изменен')
             return redirect('statuses')
 
+"""
 
+class StatusDeleteView(CustomLoginRequiredMixin, SuccessMessageMixin, DeleteView):
+    model = Status
+    template_name = 'form.html'
+    extra_context = {
+        'description': _('Are you sure you want to delete'),
+        'title': _('Delete status'),
+        'btn_text': _('Yes, delete'),
+        'btn_class': 'btn-danger'}
+    success_url = reverse_lazy('statuses')
+    success_message = _('Status successfully deleted!')
+"""
 class StatusDeleteView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         status_id = kwargs.get('id')
@@ -75,3 +102,4 @@ class StatusDeleteView(LoginRequiredMixin, View):
             messages.success(request, 'Статус успешно удален')
             return redirect('statuses')
         return HttpResponse("DELETE STATUS FAILED. CREATE FLASH FOR IT")
+"""
