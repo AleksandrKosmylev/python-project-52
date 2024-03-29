@@ -7,7 +7,10 @@ from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 from task_manager.mixins import CustomLoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
+from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 
 
 class StatusView(CustomLoginRequiredMixin, ListView):
@@ -18,7 +21,14 @@ def main_statuses(request):
     statuses = Status.objects.all()
     return render(request, 'statuses/statuses.html', {'statuses': statuses})
 """
+class StatusCreateView(CustomLoginRequiredMixin, SuccessMessageMixin, CreateView):
+    model = Status
+    form_class = StatusForm
+    template_name = 'form.html'
+    success_url = reverse_lazy('statuses/statuses.html')
+    success_message = _('Status successfully added!')
 
+"""
 class StatusCreateView(View):
 
     def get(self, request, *args, **kwargs):
@@ -32,7 +42,7 @@ class StatusCreateView(View):
             return redirect('statuses')
         else:
             return HttpResponse("STATUSES FAILED. CREATE FLASH FOR IT")
-
+"""
 
 class StatusUpdateView(LoginRequiredMixin, View):
 

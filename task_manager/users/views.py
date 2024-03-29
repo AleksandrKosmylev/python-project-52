@@ -16,7 +16,7 @@ class IndexView(ListView):
 class UserCreateView(SuccessMessageMixin, CreateView):
     model = CustomUser
     form_class = UsersForm
-    template_name = 'users/user_form.html'
+    template_name = 'form.html'
     extra_context = {
         'title': _('Registration'),
         'btn_text': _('Sign up'),
@@ -32,12 +32,12 @@ class UserUpdateView(CustomLoginRequiredMixin, AccessCheck, SuccessMessageMixin,
         'title': _('Edit user'),
         'btn_text': _('Update'),
         'btn_class': 'btn-primary'}
-    template_name = 'users/user_form.html'
+    template_name = 'form.html'
     success_url = reverse_lazy('users_index')
     success_message = _('Successfully updated!')
 
 
-class UserDeleteView(CustomLoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class UserDeleteView(CustomLoginRequiredMixin,  AccessCheck, SuccessMessageMixin, DeleteView):
     model = CustomUser
     extra_context = {
         'title': _('Delete user'),
