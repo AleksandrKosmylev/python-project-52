@@ -1,24 +1,15 @@
-<!DOCTYPE html>
-<html lang="en">
 {% extends 'layout.html' %}
-{% block content %}
+{% load django_bootstrap5 %}
+{% load i18n %}
 
-{% if messages %}
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-  {% for message in messages %}
-      {{ message }}
-  {% endfor %}
-  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-</div>
-{% endif %}
+{% block content %}
 
 <div class="container wrapper flex-grow-1">
   <h1 class="my-4">
-    Статусы
+    {% translate "Statuses" %}
   </h1>
-      
   <a class="btn btn-primary mb-3" href="{% url 'status_create' %}">Создать статус</a>
-  <table class="table table-striped">
+    <table class="table table-striped">
     <thead>
       <tr>
         <th>ID</th>
@@ -28,15 +19,15 @@
       </tr>
     </thead>
     <tbody>
-      {% for status in statuses %}
+      {% for status_data in status_list %}
         <tr>
-          <td class="fw-normal">{{ status.id }}</td>
-          <td class="fw-normal">{{ status.name}}</td>
-          <td class="fw-normal">{{ user.date_joined|date:"d.m.Y H:i" }}</td>
+          <td class="fw-normal">{{ status_data.id }}</td>
+          <td class="fw-normal">{{ status_data.name}}</td>
+          <td class="fw-normal">{{ status_data.timestamp|date:"d.m.Y H:i" }}</td>
           <td>
-            <a href="{% url 'status_update' status.id %}">Изменить</a>
+            <a href="{% url 'status_update' status_data.id %}">{% translate "Update" %}</a>
             <br>
-            <a href="{% url 'status_delete' status.id %}">Удалить</a>
+            <a href="{% url 'status_delete' status_data.id %}">{% translate "Delete" %}</a>
           </td>
         </tr>
       {% endfor %}

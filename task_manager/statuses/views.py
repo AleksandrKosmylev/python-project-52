@@ -6,12 +6,18 @@ from django.contrib import messages
 from django.http import HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
+from task_manager.mixins import CustomLoginRequiredMixin
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 
+class StatusView(CustomLoginRequiredMixin, ListView):
+    model = Status
+    template_name = 'statuses/statuses.html'
+"""
 def main_statuses(request):
     statuses = Status.objects.all()
     return render(request, 'statuses/statuses.html', {'statuses': statuses})
-
+"""
 
 class StatusCreateView(View):
 
