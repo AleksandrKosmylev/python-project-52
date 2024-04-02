@@ -7,17 +7,17 @@ from task_manager.tasks.forms import TaskForm
 from django.views import View
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.messages.views import SuccessMessageMixin
+from task_manager.mixins import CustomLoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
 
-from django.views.generic import (
-    CreateView,
-    UpdateView,
-    DeleteView,
-    DetailView,
-)
 
-
+class TaskView(ListView):
+    model = Task
+    template_name = 'tasks/tasks.html'
+    
+"""
 def main_tasks(request):
     tasks = Task.objects.all().order_by('id')
     statuses = Status.objects.all()
@@ -25,24 +25,37 @@ def main_tasks(request):
     labels = Labels.objects.all()
     return render(request, 'tasks/tasks.html', {
         'statuses': statuses, 'users': users, 'tasks': tasks, 'labels': labels})
-
-
+"""
+class TaskInfoView(DetailView):
+    model = Task
+    template_name = 'tasks/task_card.html'
+    
+"""
 def show_task_card(request, **kwargs):
-    print(request.user.id, "зарнегистрированный пользователь")
+    print(request.user.id, "зарегистрированный пользователь")
     task_id = kwargs.get('id')
     task = Task.objects.get(id=task_id)
     print(task, 'all objects')
     return render(request, 'tasks/task_card.html', {'task': task})
+"""
 
-
-class TaskCreateView(SuccessMessageMixin, CreateView):
+class TaskCreateView(CustomLoginRequiredMixin, SuccessMessageMixin, CreateView):
     model = Task
     form_class = TaskForm
-    template_name = 'to_do_form'
-    success_url = reverse_lazy('tasks:tasks')
-    success_message = _("Task successfully created") # нужно  перевести
+    template_name = 'form.html'
+    extra_context = {
+        'title': _('Create Task'),
+        'btn_text': _('Create'),
+        'btn_class': 'btn-primary'}
+    success_url = reverse_lazy('tasks')
+    success_message = _("Task successfully created")# нужно  перевести
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
 
 
+"""
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs["logged_in_user"] = self.request.user # c авторизацией
@@ -55,6 +68,7 @@ class TaskCreateView(SuccessMessageMixin, CreateView):
         self.object.save()
         form._save_m2m()
         return super().form_valid(form)
+"""
 """
     def post(self, request):
 

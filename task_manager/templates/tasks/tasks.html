@@ -1,4 +1,7 @@
 {% extends 'layout.html' %}
+{% load django_bootstrap5 %}
+{% load i18n %}
+
 {% block content %}
 
 {% if messages %}
@@ -9,20 +12,21 @@
   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 </div>
 {% endif %}
+
 <div class="container wrapper flex-grow-1">
   <h1 class="my-4">
       Задачи
   </h1>
       
 <a class="btn btn-primary mb-3" href="{% url 'task_create' %}" role="button">Создать задачу</a>
-  
+  <!--
 <div class="card mb-3">
   <div class="card-body bg-light">
     <form class="form-inline center" method="get">
       <div class="mb-3"><label class="form-label" for="id_status">Статус</label>
         <select name="status" class="form-select" id="id_status">
-          {% for status in statuses %}
-          <option value="{{status.name}}">{{status.name}}</option>
+          {% for status_data in status_list %}
+          <option value="{{status_data.name}}">{{status_data.name}}</option>
           {% endfor %}
          </select>
       </div>
@@ -30,7 +34,7 @@
       <div class="mb-3">
         <label class="form-label" for="id_executor">Исполнитель</label>
         <select name="executor" class="form-select" id="id_executor">
-          {% for user in users %}
+          {% for user in object_list %}
           <option value="{{user.username}}" selected="">{{user.username}}</option>
           {% endfor %}
         </select>
@@ -39,7 +43,7 @@
       <div class="mb-3">
         <label class="form-label" for="id_label">Метка</label>
         <select name="label" class="form-select" id="id_label">
-          {% for label in labels %}
+          {% for label in labels_list %}
           <option value="{{label.name}}" selected="">{{label.name}}</option>
           {% endfor %}
         </select>
@@ -55,7 +59,7 @@
     </form>
   </div>
 </div>
-
+-->
 
 <table class="table table-striped">
   <thead>
@@ -70,7 +74,7 @@
     </tr>
   </thead>
   <tbody>
-    {% for task in tasks %}
+    {% for task in object_list %}
     <tr>
       <td>{{task.id}}</td>
       <td>
@@ -81,9 +85,9 @@
       <td>{{task.executor.first_name}} {{task.executor.last_name}}</td>
       <td>{{task.timestamp|date:"d.m.Y H:i"}}</td>
       <td>
-        <a href="{% url 'task_update' id=task.id%}">Изменить</a>
+        <a href="{% url 'task_update' task.id%}">Изменить</a>
         <br>
-        <a href="{% url 'task_delete' id=task.id%}">Удалить</a>
+        <a href="{% url 'task_delete' task.id%}">Удалить</a>
       </td>
     </tr>
     {% endfor %}

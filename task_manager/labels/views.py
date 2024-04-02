@@ -11,7 +11,7 @@ from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 
 
-class LabelView(ListView):
+class LabelView(CustomLoginRequiredMixin, ListView):
     model = Labels
     template_name = 'labels/labels.html'
 
@@ -20,7 +20,7 @@ def main_labels(request):
     labels = Labels.objects.all().order_by('id')
     return render(request, 'labels/labels.html', {'labels': labels})
 """
-class LabelCreateView(SuccessMessageMixin, CreateView):
+class LabelCreateView(CustomLoginRequiredMixin,SuccessMessageMixin, CreateView):
     model = Labels
     form_class = LabelsForm
     template_name = 'form.html'

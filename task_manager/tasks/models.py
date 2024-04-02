@@ -4,17 +4,19 @@ from task_manager.users.models import CustomUser
 from task_manager.statuses.models import Status
 from task_manager.labels.models import Labels
 
-
 class Task(models.Model):
-    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='author' )
     name = models.CharField('name', max_length=255, unique=True)
-    description = models.CharField('description', max_length=255)
+    description = models.TextField('description', blank=True)
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='author')
     timestamp = models.DateTimeField("time_stamp", auto_now_add=True)
     executor = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     status = models.ForeignKey(Status, models.SET_NULL, blank=True, null=True)
     # labels = models.ForeignKey(Labels, models.SET_NULL, blank=True, null=True)
-    labels = models.ManyToManyField(Labels)
+    # labels = models.ManyToManyField(Labels)
+    labels = models.ManyToManyField(Labels, through="IntermediateModel")
+    # labels = models.ForeignKey(Labels, on_delete=models.CASCADE)
 
+    
     def __str__(self):
         return '{} {} {} {} {} {}'.format(
             self.author, self.name, self.description, self.executor, self.status, self.labels)
@@ -23,3 +25,9 @@ class Task(models.Model):
         def __str__(self):
             return self.name, self.description, self.executor, self.status, self.labels
     """
+
+class IntermediateModel(models.Model):
+    label = models.ForeignKey(Labels,
+                              on_delete=models.PROTECT,
+                              null=True)
+    task = models.ForeignKey(Task, on_delete=models.CASCADE)
