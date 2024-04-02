@@ -11,15 +11,6 @@
         {% csrf_token %}
         {% bootstrap_form form %}
         <input class="btn {{ btn_class }}" type="submit" value="{{ btn_text }}">
-        <!--
-        {% block button_value %}
-            {% if request.path == "/users/create/"%}
-                <input class="btn btn-primary" type="submit"  value='{% translate "Register" %}'>
-            {% else %}
-                <input class="btn btn-primary" type="submit"  value='{% translate "Update" %}'>
-            {% endif %}
-        {% endblock %}
-        -->
     </form>
 
 {% endblock %}

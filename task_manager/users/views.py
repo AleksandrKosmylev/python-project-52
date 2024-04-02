@@ -45,6 +45,5 @@ class UserDeleteView(CustomLoginRequiredMixin,  AccessCheck, SuccessMessageMixin
         'btn_text': _('Yes, delete'),
         'btn_class': 'btn-danger'}
     template_name = 'form.html'
-    # template_name = 'users/user_delete.html'
     success_url = reverse_lazy('users_index')
     success_message = _("User successfully deleted!")
