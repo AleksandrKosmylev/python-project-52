@@ -10,13 +10,13 @@ class TaskFilter(django_filters.FilterSet):
                                              label=_('Label'),
                                              field_name='labels')
     author_tasks = django_filters.BooleanFilter(field_name='author',
-                                             widget=forms.CheckboxInput,
-                                             method='filter_author_tasks',
-                                             label=_('Only my tasks'))
+                                                widget=forms.CheckboxInput,
+                                                method='filter_author_tasks',
+                                                label=_('Only my tasks'))
+
     class Meta:
         model = Task
         fields = ['status', 'executor']
-
 
     def filter_author_tasks(self, queryset, arg, value):
         if value:
