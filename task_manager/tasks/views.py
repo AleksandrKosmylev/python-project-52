@@ -1,3 +1,4 @@
+from task_manager.tasks.mixins import TaskAuthorMixin
 from task_manager.tasks.models import Task
 from task_manager.tasks.forms import TaskForm
 from django.urls import reverse_lazy
@@ -48,7 +49,7 @@ class TaskUpdateView(CustomLoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = _("Task successfully updated")
 
 
-class TaskDeleteView(CustomLoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class TaskDeleteView(CustomLoginRequiredMixin, SuccessMessageMixin, TaskAuthorMixin,  DeleteView):
     model = Task
     extra_context = {
         'description': _('Are you sure you want to delete'),
