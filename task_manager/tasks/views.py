@@ -1,14 +1,17 @@
 from task_manager.tasks.models import Task
 from task_manager.tasks.forms import TaskForm
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from task_manager.mixins import CustomLoginRequiredMixin
 from django.utils.translation import gettext_lazy as _
+from django_filters.views import FilterView
+from task_manager.tasks.filter import TaskFilter
 
 
-class TaskView(ListView):
+class TaskView(CustomLoginRequiredMixin, FilterView):
     model = Task
+    filterset_class = TaskFilter
     template_name = 'tasks/tasks.html'
 
 
@@ -31,22 +34,6 @@ class TaskCreateView(CustomLoginRequiredMixin, SuccessMessageMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
-
-
-"""
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        kwargs["logged_in_user"] = self.request.user # c авторизацией
-        return kwargs
-
-
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.author = form.logged_in_user # from string 48
-        self.object.save()
-        form._save_m2m()
-        return super().form_valid(form)
-"""
 
 
 class TaskUpdateView(CustomLoginRequiredMixin, SuccessMessageMixin, UpdateView):
