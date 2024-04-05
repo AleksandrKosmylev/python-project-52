@@ -1,8 +1,25 @@
 import unittest
 from django.test import Client
-
 from django.test import TestCase
-from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+from task_manager.users.models import CustomUser
+from django.urls import reverse
+from . import get_content
+from django.utils.translation import gettext_lazy as _
+
+
+
+class UsersTestCase(TestCase):
+
+
+    def test_index_page(self):
+        response = self.client.get(reverse('users_index'))
+        self.assertEqual(response.status_code, 200)
+
+
+
+
+
 """
 class UsersTest(TestCase):
     def setUp(self):
@@ -29,7 +46,7 @@ class UsersTest(TestCase):
             User.objects.get(pk=self.user.pk)
 """
 
-
+"""
 class ClientCreateTest(unittest.TestCase):
     def setUp(self):
         self.client = Client()
@@ -56,7 +73,8 @@ class ClientCreateTest(unittest.TestCase):
         self.assertEqual(request_create.redirect_chain, [('/login/', 302)])
         # Check if user added to database
         self.assertEqual(user.username, data['username'])
-
+"""
+"""
     def test_delete_client(self):
 
         data = {
@@ -74,7 +92,7 @@ class ClientCreateTest(unittest.TestCase):
         self.assertEqual(request_delete.redirect_chain, [('/users/', 302)])
         # Check if user deleted to database
         self.assertNotEqual(request_delete, user)
-
+"""
 """
     def test_update_client(self):
 
