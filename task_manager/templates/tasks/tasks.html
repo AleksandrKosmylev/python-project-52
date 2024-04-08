@@ -15,10 +15,10 @@
 
 <div class="container wrapper flex-grow-1">
   <h1 class="my-4">
-      Задачи
+      {% translate "Tasks" %}
   </h1>
       
-  <a class="btn btn-primary mb-3" href="{% url 'task_create' %}" role="button">Создать задачу</a>  
+  <a class="btn btn-primary mb-3" href="{% url 'task_create' %}" role="button">{% translate "Create task" %}</a>  
     
   <div class="card mb-3">
     <div class="card-body bg-light">
@@ -36,11 +36,11 @@
     <thead>
       <tr>
         <th>ID</th>
-        <th>Имя</th>
-        <th>Статус</th>
-        <th>Автор</th>
-        <th>Исполнитель</th>
-        <th>Дата создания</th>
+        <th>{% translate "Name" %}</th>
+        <th>{% translate "Status" %}</th>
+        <th>{% translate "Author" %}</th>
+        <th>{% translate "Executor" %}</th>
+        <th>{% translate "Creation date" %}</th>
         <th></th>
       </tr>
     </thead>
@@ -57,9 +57,9 @@
         <td>{{task.executor.first_name}} {{task.executor.last_name}}</td>
         <td>{{task.timestamp|date:"d.m.Y H:i"}}</td>
         <td>
-          <a href="{% url 'task_update' task.id%}">Изменить</a>
+          <a href="{% url 'task_update' task.id%}">{% translate "Update" %}</a>
           <br>
-          <a href="{% url 'task_delete' task.id%}">Удалить</a>
+          <a href="{% url 'task_delete' task.id%}">{% translate "Delete" %}</a>
         </td>
       </tr>
       {% endfor %}

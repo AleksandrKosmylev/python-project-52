@@ -2,7 +2,7 @@
 <html lang="en">
 {% extends 'layout.html' %}
 {% block content %}
-
+{% load i18n %}
 {% if messages %}
 <div class="alert alert-success alert-dismissible fade show" role="alert">
   {% for message in messages %}
@@ -18,13 +18,13 @@
             <thead>
               <tr class="border">
                 <th>ID</th>
-                <th>Имя пользователя</th>
-                <th>Полное имя</th>
-                <th>Дата создания</th>
+                <th>{% translate "User name" %}</th>
+                <th>{% translate "Full name" %}</th>
+                <th>{% translate "Registration date" %}</th>
               <tr>
             </thead>  
             <h1 class="my-4">
-              Пользователи
+              {% translate "Users" %}
             </h1>
             <tbody>
               
@@ -35,9 +35,9 @@
                 <td class="fw-normal">{{ user.first_name}} {{ user.last_name}}</td>
                 <td class="fw-normal">{{ user.date_joined|date:"d.m.Y H:i" }}</td>
                 <td>
-                  <a href="{% url 'user_update' user.id %}">Изменить </a>
+                  <a href="{% url 'user_update' user.id %}">{% translate "Update" %}</a>
                   <br>
-                  <a href="{% url 'user_delete' user.id %}">Удалить</a>
+                  <a href="{% url 'user_delete' user.id %}">{% translate "Delete" %}</a>
                 </td>
               </tr>
               {% endfor %}
