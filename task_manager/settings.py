@@ -96,6 +96,7 @@ WSGI_APPLICATION = 'task_manager.wsgi.application'
 
 # default='postgres://task_manager_database_sf24_user:zXI2NkEWI8ys4gv4qKcUqTfWZU782OFB@dpg-cmme91q1hbls73cfetpg-a.oregon-postgres.render.com/task_manager_database_sf24',
 # default = 'postgres://extra_task_manager_database_user:bLVrmseZZmuC1CxJrHRrcosCah81zw90@dpg-cnu0h0cf7o1s73e9ufu0-a.oregon-postgres.render.com/extra_task_manager_database'
+"""
 
 DATABASES = {
     'default': dj_database_url.config(
@@ -103,8 +104,12 @@ DATABASES = {
         conn_max_age=600
     )
 }
-
-
+"""
+DATABASES = {
+    "default": dj_database_url.parse(
+        os.getenv("DATABASE_URL", f"sqlite:///{BASE_DIR/'db.sqlite3'}")
+    )
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators

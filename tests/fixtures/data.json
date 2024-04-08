@@ -28,5 +28,54 @@
             "password1": "password",
             "password2": "password"
         }
+    },
+    "tasks": {
+        "new": {
+            "pk": 2,
+            "name": "refill water",
+            "status": 1,
+            "author": 1
+        },
+        "existing": {
+            "pk": 1,
+            "name": "feed the cat",
+            "status": 1,
+            "author": 1
+        },
+        "updated": {
+            "pk": 1,
+            "name": "walk the dog",
+            "status": 1,
+            "author": 1
+        }
+    },
+    "labels": {
+        "new": {
+            "pk": 3,
+            "name": "urgent"
+        },
+        "existing": {
+            "pk": 1,
+            "name": "easy"
+        },
+        "updated": {
+            "pk": 1,
+            "name": "difficult"
+        }
+    },
+    "statuses": {
+        "new": {
+            "pk": 3,
+            "name": "25%"
+        },
+        "existing": {
+            "pk": 1,
+            "name": "completed"
+        },
+        "updated": {
+            "pk": 1,
+            "name": "50%"
+        }
     }
+
 }
