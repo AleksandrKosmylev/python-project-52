@@ -17,11 +17,12 @@
                 <input type="submit" class="nav-link px-3 text-white" value="{% translate 'Log out ' %}"/>
             </form>
         </li>
-      {% endif %}
+      {% else %}
     </ul>
     <div class="text-end">
       <a href="/login/" class="btn btn-outline-light me-2" >{% translate "Login" %}</a>
       <a href="{% url 'user_create' %}" class="btn btn-warning">{% translate "Registration" %}</a>
     </div>
+    {% endif %}
   </div>
 </div>
