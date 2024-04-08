@@ -175,3 +175,7 @@ if not DEBUG:    # Tell Django to copy statics to the `staticfiles` directory
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # STATIC_ROOT = BASE_DIR / "static"
+
+# Tests settings
+
+FIXTURE_DIRS = [os.path.join(BASE_DIR, 'task_manager/tests/fixtures')]
