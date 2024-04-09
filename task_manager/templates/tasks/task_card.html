@@ -3,7 +3,7 @@
 {% block content %}
 <div class="container wrapper flex-grow-1">
   <h1 class="my-4">
-    {% translate "Task details" %}
+    {% trans "Task details" %}
   </h1>
   <div class="card">
     <div class="card-header bg-secondary text-white">
@@ -14,19 +14,19 @@
       <hr>
       <div class="container">
         <div class="row p-1">
-          <div class="col">{% translate "Author" %}</div>
+          <div class="col">{% trans "Author" %}</div>
           <div class="col">{{task.author.first_name}}  {{ task.author.last_name }}</div>
         </div>
         <div class="row p-1">
-          <div class="col">{% translate "Executor" %}</div>
+          <div class="col">{% trans "Executor" %}</div>
           <div class="col">{{task.executor}}</div>
         </div>
         <div class="row p-1">
-          <div class="col">{% translate "Status" %}</div>
+          <div class="col">{% trans "Status" %}</div>
           <div class="col">{{task.status}}</div>
         </div>
         <div class="row p-1">
-          <div class="col">{% translate "Creation date" %}</div>
+          <div class="col">{% trans "Creation date" %}</div>
           <div class="col">{{ task.timestamp|date:"d.m.Y H:i"}}</div>
         </div>
         <div class="row p-1">
@@ -43,9 +43,9 @@
         </div>
         <div class="row p-1">
           <div class="col">
-            <a href="{% url 'task_update' task.id%}">{% translate "Update" %}</a>
+            <a href="{% url 'task_update' task.id%}">{% trans "Update" %}</a>
             <br>
-            <a href="% url 'task_delete' task.id%}">{% translate "Delete" %}</a>
+            <a href="% url 'task_delete' task.id%}">{% trans "Delete" %}</a>
           </div>
         </div>
       </div>
