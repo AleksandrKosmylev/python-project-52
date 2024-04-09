@@ -48,26 +48,35 @@ class UsersTest(TestCase):
         self.assertEqual(created_user.username, new_user.get('username'))
         self.assertContains(response, _('Successfully registered!'))
         # print(CustomUser.objects.all())
-        
-    """
+
+
     def test_update(self):
         exist_user = CustomUser.objects.get(id=1)
-        print(exist_user, 'exist_user')
+        print(exist_user.last_name, 'exist_user last name')
         updated_user = self.dump_data.get('users').get('updated')
-        print(updated_user, 'updated_user!!!')
+        print(updated_user, 'updated_user!')
 
+        data = {
+            "pk": 1,
+            "first_name": "John",
+            "last_name": "Stark",
+            "username": "wolf",
+            "password1": "Parol123",
+            "password2": "Parol123"
+        }
 
         # logged in
         self.client.force_login(user=exist_user)
         response = self.client.post(reverse('user_update',
                                             args=[exist_user.pk]),
-                                    updated_user,
+                                    data,
                                     follow=True)
         updated_user_added = CustomUser.objects.get(id=exist_user.pk)
         print(updated_user_added.last_name, 'updated_user_added')
         self.assertEqual(updated_user_added.last_name, 'Stark')
         self.assertContains(response, _('Successfully updated!'))
         self.assertRedirects(response, reverse('users_index'))
+        
     """
     def test_delete(self):
         exist_user = CustomUser.objects.get(id=1)
@@ -93,7 +102,7 @@ class UsersTest(TestCase):
         with self.assertRaises(ObjectDoesNotExist):
             CustomUser.objects.get(id=1)
 
-
+    """
 
 
 """
