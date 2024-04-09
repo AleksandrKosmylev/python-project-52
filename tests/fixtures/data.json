@@ -3,10 +3,10 @@
         "new": {
             "pk": 3,
             "first_name": "Luke",
-            "last_name": "Skywalker",
             "username": "neo",
-            "password1": "password",
-            "password2": "password"
+            "last_name": "Skywalker",
+            "password1": "Parol123",
+            "password2": "Parol123"
         },
         "existing1": {
             "pk": 1,
@@ -25,8 +25,8 @@
             "first_name": "John",
             "last_name": "Stark",
             "username": "wolf",
-            "password1": "password",
-            "password2": "password"
+            "password1": "Parol123",
+            "password2": "Parol123"
         }
     },
     "tasks": {

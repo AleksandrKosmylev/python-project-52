@@ -142,11 +142,12 @@ LOGOUT_REDIRECT_URL = 'index'
 
 LANGUAGE_CODE = 'ru'
 
+"""
 LANGUAGES = [
     ('ru', _('Russian')),
     ('en', _('English')),
 ]
-
+"""
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
