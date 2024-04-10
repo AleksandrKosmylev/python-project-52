@@ -113,7 +113,7 @@ msgstr "Задачу может удалить только ее автор"
 #, fuzzy
 #| msgid "Registration"
 msgid "Description"
-msgstr "Регистрация"
+msgstr "Описание"
 
 #: tasks/models.py:14 templates/tasks/task_card.html:17
 #: templates/tasks/tasks.html:41
