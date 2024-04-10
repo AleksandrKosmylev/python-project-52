@@ -273,7 +273,7 @@ msgstr "Удалить пользователя"
 
 #: task_manager/users/views.py:50
 msgid "User successfully deleted!"
-msgstr "Пользователь успешно изменен"
+msgstr "Пользователь успешно удален"
 
 #: task_manager/views.py:25
 msgid "Successfully logged in!"
