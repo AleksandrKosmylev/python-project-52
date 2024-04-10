@@ -1,8 +1,11 @@
 [tool.poetry]
 name = "hexlet-code"
 version = "0.1.0"
-description = ""
+description = "Application that manages tasks for multiple users."
 authors = ["AleksandrKosmylev <alex.kosmylev@gmail.com>"]
+packages = [
+  { include = "task_manager" },
+]
 readme = "README.md"
 
 [tool.poetry.dependencies]
