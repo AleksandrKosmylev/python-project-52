@@ -14,15 +14,15 @@ class Task(models.Model):
                                verbose_name=_('Author'))
     timestamp = models.DateTimeField("time_stamp",
                                      auto_now_add=True)
-    status = models.ForeignKey(Status,
-                               on_delete=models.PROTECT,
-                               verbose_name=_('Status'))
     executor = models.ForeignKey(CustomUser,
                                  on_delete=models.PROTECT,
                                  blank=True,
                                  null=True,
                                  related_name='task_executor',
                                  verbose_name=_('Executor'))
+    status = models.ForeignKey(Status,
+                               on_delete=models.PROTECT,
+                               verbose_name=_('Status'))
     labels = models.ManyToManyField(Labels,
                                     blank=True,
                                     through="IntermediateModel",
@@ -32,8 +32,8 @@ class Task(models.Model):
         return '{} {} {} {} {} {}'.format(self.author,
                                           self.name,
                                           self.description,
-                                          self.status,
                                           self.executor,
+                                          self.status,
                                           self.labels)
 
 
