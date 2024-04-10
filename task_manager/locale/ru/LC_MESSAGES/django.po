@@ -110,8 +110,6 @@ msgid "Only task's author can delete it!"
 msgstr "Задачу может удалить только ее автор"
 
 #: tasks/models.py:10
-#, fuzzy
-#| msgid "Registration"
 msgid "Description"
 msgstr "Описание"
 
