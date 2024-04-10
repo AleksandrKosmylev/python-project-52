@@ -1,3 +1,4 @@
+# flake8: noqa: F401
 from task_manager.users.forms import UsersForm
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin
@@ -7,6 +8,8 @@ from django.utils.translation import gettext as _
 from task_manager.users.models import CustomUser
 from task_manager.mixins import CustomLoginRequiredMixin
 from task_manager.users.mixins import AccessCheck
+from django.shortcuts import render
+from django.http import HttpResponse
 
 
 class IndexView(ListView):
@@ -54,10 +57,6 @@ class UserDeleteView(CustomLoginRequiredMixin,
     template_name = 'form.html'
     success_url = reverse_lazy('users_index')
     success_message = _("User successfully deleted!")
-
-
-from django.shortcuts import render
-from django.http import HttpResponse
 
 
 def index(request):

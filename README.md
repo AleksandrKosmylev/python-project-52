@@ -17,7 +17,6 @@ Each task has a label description and statuses that can be changed and deleted.
 | [flake8](https://flake8.pycqa.org/)                                         | "Your tool for style guide enforcement" |
 | [gunicorn](https://docs.gunicorn.org/en/stable/)                            | "Python WSGI HTTP Server for UNIX" |
 | [uvicorn](https://www.uvicorn.org/)                                         | "Uvicorn is an ASGI web server implementation for Python" |
-| [render](https://docs.render.com/)                                          | "Render is a unified cloud to build and run all your apps and websites" |
 | [python-dotenv](https://pypi.org/project/python-dotenv/)                    | "Python-dotenv reads key-value pairs from a .env file and can set them as environment variables" |
 | [bootstrap](https://getbootstrap.com/)                                      | "Feature-packed frontend toolkit" |
 | [psycopg](https://www.psycopg.org/docs/index.html)                          | "Database adapter" |
@@ -31,8 +30,25 @@ Each task has a label description and statuses that can be changed and deleted.
 
 ### Installation
     
-    in progress
-
+1. Clone the repository to your local machine:
+    ```
+    git@github.com:AleksandrKosmylev/python-project-52.git
+    ```
+2. Change the working directory:
+    ```
+    cd python-project-52
+    ```
+3. Create .env file and add  your variables according to example below:
+    ```
+    SECRET_KEY = 'secret'
+    DEBUG = 'True'
+    DATABASE_URL = 'postgresql:...'
+    POST_SERVER_ITEM_ACCESS_TOKEN = 'token'
+    ```
+4. Run application
+    ```
+    make run
+    ```
 
 ### Link
 

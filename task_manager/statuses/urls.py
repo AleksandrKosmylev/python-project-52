@@ -1,3 +1,4 @@
+# flake8: noqa: E501
 from django.urls import path
 from task_manager.statuses.views import StatusView, StatusCreateView, StatusUpdateView, StatusDeleteView
 
