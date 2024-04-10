@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-04-10 20:33+0300\n"
+"POT-Creation-Date: 2024-04-10 20:52+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,6 +19,12 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: labels/models.py:6 statuses/models.py:6 tasks/models.py:9
+#: templates/labels/labels.html:25 templates/statuses/statuses.html:25
+#: templates/tasks/tasks.html:39
+msgid "Name"
+msgstr "Имя"
 
 #: labels/views.py:23
 msgid "Create Label"
@@ -67,11 +73,6 @@ msgstr "Метка успешно удалена"
 msgid "You are not authorized! Log in, please."
 msgstr "Вы не авторизованы! Пожалуйста, выполните вход."
 
-#: statuses/models.py:6 templates/labels/labels.html:25
-#: templates/statuses/statuses.html:25 templates/tasks/tasks.html:39
-msgid "Name"
-msgstr "Имя"
-
 #: statuses/views.py:23 templates/statuses/statuses.html:20
 msgid "Create status"
 msgstr "Создать статус"
@@ -108,6 +109,32 @@ msgstr "Только свои задачи"
 msgid "Only task's author can delete it!"
 msgstr "Задачу может удалить только ее автор"
 
+#: tasks/models.py:10
+#, fuzzy
+#| msgid "Registration"
+msgid "Description"
+msgstr "Регистрация"
+
+#: tasks/models.py:14 templates/tasks/task_card.html:17
+#: templates/tasks/tasks.html:41
+msgid "Author"
+msgstr "Автор"
+
+#: tasks/models.py:22 templates/tasks/task_card.html:21
+#: templates/tasks/tasks.html:42
+msgid "Executor"
+msgstr "Исполнитель"
+
+#: tasks/models.py:25 templates/tasks/task_card.html:25
+#: templates/tasks/tasks.html:40
+msgid "Status"
+msgstr "Статус"
+
+#: tasks/models.py:29 templates/labels/labels.html:18
+#: templates/navigation.html:12
+msgid "Labels"
+msgstr "Метки"
+
 #: tasks/views.py:32
 msgid "Create Task"
 msgstr "Создать задачу"
@@ -131,10 +158,6 @@ msgstr "Удаление задачи"
 #: tasks/views.py:69
 msgid "Task successfully deleted!"
 msgstr "Задача успешно удалена"
-
-#: templates/labels/labels.html:18 templates/navigation.html:12
-msgid "Labels"
-msgstr "Метки"
 
 #: templates/labels/labels.html:20
 msgid "Create label"
@@ -186,18 +209,6 @@ msgstr "Регистрация"
 #: templates/tasks/task_card.html:6
 msgid "Task details"
 msgstr "Просмотр задачи"
-
-#: templates/tasks/task_card.html:17 templates/tasks/tasks.html:41
-msgid "Author"
-msgstr "Автор"
-
-#: templates/tasks/task_card.html:21 templates/tasks/tasks.html:42
-msgid "Executor"
-msgstr "Исполнитель"
-
-#: templates/tasks/task_card.html:25 templates/tasks/tasks.html:40
-msgid "Status"
-msgstr "Статус"
 
 #: templates/tasks/tasks.html:21
 msgid "Create task"
