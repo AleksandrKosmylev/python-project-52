@@ -28,6 +28,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY')
+POST_SERVER_ITEM_ACCESS_TOKEN = os.environ.get('POST_SERVER_ITEM_ACCESS_TOKEN')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ
@@ -68,7 +69,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.locale.LocaleMiddleware'
+    'django.middleware.locale.LocaleMiddleware',
+    'rollbar.contrib.django.middleware.RollbarNotifierMiddleware'
 ]
 
 ROOT_URLCONF = 'task_manager.urls'
@@ -175,3 +177,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Tests settings
 
 FIXTURE_DIRS = [os.path.join(BASE_DIR, 'task_manager/tests/fixtures')]
+
+ROLLBAR = {
+    'access_token': POST_SERVER_ITEM_ACCESS_TOKEN,
+    'environment': 'development' if DEBUG else 'production',
+    'code_version': '1.0',
+    'root': BASE_DIR,
+}

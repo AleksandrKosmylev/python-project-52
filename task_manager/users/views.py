@@ -48,3 +48,12 @@ class UserDeleteView(CustomLoginRequiredMixin,  AccessCheck, SuccessMessageMixin
     template_name = 'form.html'
     success_url = reverse_lazy('users_index')
     success_message = _("User successfully deleted!")
+
+
+from django.shortcuts import render
+from django.http import HttpResponse
+
+def index(request):
+    a = None
+    a.hello() # Creating an error with an invalid line of code
+    return HttpResponse("Hello, world. You're at the pollapp index.")
