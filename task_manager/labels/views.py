@@ -5,7 +5,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from task_manager.mixins import CustomLoginRequiredMixin
 from django.urls import reverse_lazy
 from django.utils.translation import gettext as _
-# from django.utils.translation import gettext as _
+
 
 class LabelView(CustomLoginRequiredMixin, ListView):
     model = Labels
