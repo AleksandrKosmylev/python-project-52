@@ -7,7 +7,8 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 
 class AccessCheck(UserPassesTestMixin):
     login_url = reverse_lazy('users_index')
-    permission_denied_message = _("You do not have permission to change another user.")
+    permission_denied_message =\
+        _("You do not have permission to change another user.")
 
     def test_func(self):
         return self.get_object() == self.request.user

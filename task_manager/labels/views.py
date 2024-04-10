@@ -12,7 +12,9 @@ class LabelView(CustomLoginRequiredMixin, ListView):
     template_name = 'labels/labels.html'
 
 
-class LabelCreateView(CustomLoginRequiredMixin, SuccessMessageMixin, CreateView):
+class LabelCreateView(CustomLoginRequiredMixin,
+                      SuccessMessageMixin,
+                      CreateView):
     model = Labels
     form_class = LabelsForm
     template_name = 'form.html'
@@ -36,7 +38,9 @@ class LabelUpdateView(CustomLoginRequiredMixin, SuccessMessageMixin, UpdateView)
     success_message = _('Label successfully update!')
 
 
-class LabelDeleteView(CustomLoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class LabelDeleteView(CustomLoginRequiredMixin,
+                      SuccessMessageMixin,
+                      DeleteView):
     model = Labels
     extra_context = {
         'description': _('Are you sure you want to delete'),

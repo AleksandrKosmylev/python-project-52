@@ -22,7 +22,9 @@ class TaskInfoView(DetailView):
     template_name = 'tasks/task_card.html'
 
 
-class TaskCreateView(CustomLoginRequiredMixin, SuccessMessageMixin, CreateView):
+class TaskCreateView(CustomLoginRequiredMixin,
+                     SuccessMessageMixin,
+                     CreateView):
     model = Task
     form_class = TaskForm
     template_name = 'form.html'
@@ -38,7 +40,9 @@ class TaskCreateView(CustomLoginRequiredMixin, SuccessMessageMixin, CreateView):
         return super().form_valid(form)
 
 
-class TaskUpdateView(CustomLoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class TaskUpdateView(CustomLoginRequiredMixin,
+                     SuccessMessageMixin,
+                     UpdateView):
     model = Task
     form_class = TaskForm
     template_name = 'form.html'
@@ -50,7 +54,10 @@ class TaskUpdateView(CustomLoginRequiredMixin, SuccessMessageMixin, UpdateView):
     success_message = _("Task successfully updated")
 
 
-class TaskDeleteView(CustomLoginRequiredMixin, SuccessMessageMixin, TaskAuthorMixin,  DeleteView):
+class TaskDeleteView(CustomLoginRequiredMixin,
+                     SuccessMessageMixin,
+                     TaskAuthorMixin,
+                     DeleteView):
     model = Task
     extra_context = {
         'description': _('Are you sure you want to delete'),

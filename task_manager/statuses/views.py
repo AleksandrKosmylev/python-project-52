@@ -13,7 +13,9 @@ class StatusView(CustomLoginRequiredMixin, ListView):
     template_name = 'statuses/statuses.html'
 
 
-class StatusCreateView(CustomLoginRequiredMixin, SuccessMessageMixin, CreateView):
+class StatusCreateView(CustomLoginRequiredMixin,
+                       SuccessMessageMixin,
+                       CreateView):
     model = Status
     form_class = StatusForm
     template_name = 'form.html'
@@ -25,7 +27,9 @@ class StatusCreateView(CustomLoginRequiredMixin, SuccessMessageMixin, CreateView
     success_message = _('Status successfully added!')
 
 
-class StatusUpdateView(CustomLoginRequiredMixin, SuccessMessageMixin, UpdateView):
+class StatusUpdateView(CustomLoginRequiredMixin,
+                       SuccessMessageMixin,
+                       UpdateView):
     model = Status
     form_class = StatusForm
     template_name = 'form.html'
@@ -37,7 +41,9 @@ class StatusUpdateView(CustomLoginRequiredMixin, SuccessMessageMixin, UpdateView
     success_message = _('Status successfully update!')
 
 
-class StatusDeleteView(CustomLoginRequiredMixin, SuccessMessageMixin, DeleteView):
+class StatusDeleteView(CustomLoginRequiredMixin,
+                       SuccessMessageMixin,
+                       DeleteView):
     model = Status
     template_name = 'form.html'
     extra_context = {

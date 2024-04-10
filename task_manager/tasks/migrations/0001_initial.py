@@ -19,26 +19,57 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='IntermediateModel',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('label', models.ForeignKey(null=True, on_delete=django.db.models.deletion.PROTECT, to='labels.labels')),
+                ('id', models.BigAutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('label', models.ForeignKey(
+                    null=True,
+                    on_delete=django.db.models.deletion.PROTECT,
+                    to='labels.labels')),
             ],
         ),
         migrations.CreateModel(
             name='Task',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=255, unique=True, verbose_name='name')),
-                ('description', models.TextField(blank=True, verbose_name='description')),
-                ('timestamp', models.DateTimeField(auto_now_add=True, verbose_name='time_stamp')),
-                ('author', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='author', to=settings.AUTH_USER_MODEL)),
-                ('executor', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('labels', models.ManyToManyField(through='tasks.IntermediateModel', to='labels.labels', verbose_name='labels')),
-                ('status', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to='statuses.status')),
+                ('id', models.BigAutoField(
+                    auto_created=True,
+                    primary_key=True,
+                    serialize=False,
+                    verbose_name='ID')),
+                ('name', models.CharField(
+                    max_length=255,
+                    unique=True,
+                    verbose_name='name')),
+                ('description', models.TextField(
+                    blank=True,
+                    verbose_name='description')),
+                ('timestamp', models.DateTimeField(
+                    auto_now_add=True,
+                    verbose_name='time_stamp')),
+                ('author', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    related_name='author',
+                    to=settings.AUTH_USER_MODEL)),
+                ('executor', models.ForeignKey(
+                    on_delete=django.db.models.deletion.CASCADE,
+                    to=settings.AUTH_USER_MODEL)),
+                ('labels', models.ManyToManyField(
+                    through='tasks.IntermediateModel',
+                    to='labels.labels',
+                    verbose_name='labels')),
+                ('status', models.ForeignKey(
+                    blank=True, null=True,
+                    on_delete=django.db.models.deletion.SET_NULL,
+                    to='statuses.status')),
             ],
         ),
         migrations.AddField(
             model_name='intermediatemodel',
             name='task',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='tasks.task'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                to='tasks.task'),
         ),
     ]

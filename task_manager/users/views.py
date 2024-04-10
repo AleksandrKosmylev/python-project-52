@@ -26,7 +26,10 @@ class UserCreateView(SuccessMessageMixin, CreateView):
     success_message = _('Successfully registered!')
 
 
-class UserUpdateView(CustomLoginRequiredMixin, AccessCheck, SuccessMessageMixin, UpdateView):
+class UserUpdateView(CustomLoginRequiredMixin,
+                     AccessCheck,
+                     SuccessMessageMixin,
+                     UpdateView):
     model = CustomUser
     form_class = UsersForm
     extra_context = {
@@ -38,7 +41,10 @@ class UserUpdateView(CustomLoginRequiredMixin, AccessCheck, SuccessMessageMixin,
     success_message = _('Successfully updated!')
 
 
-class UserDeleteView(CustomLoginRequiredMixin,  AccessCheck, SuccessMessageMixin, DeleteView):
+class UserDeleteView(CustomLoginRequiredMixin,
+                     AccessCheck,
+                     SuccessMessageMixin,
+                     DeleteView):
     model = CustomUser
     extra_context = {
         'description': _('Are you sure you want to delete'),
