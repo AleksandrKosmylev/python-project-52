@@ -32,8 +32,8 @@ class Task(models.Model):
         return '{} {} {} {} {} {}'.format(self.author,
                                           self.name,
                                           self.description,
-                                          self.executor,
                                           self.status,
+                                          self.executor,
                                           self.labels)
 
 
