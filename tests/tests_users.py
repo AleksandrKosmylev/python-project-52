@@ -1,7 +1,6 @@
 # import unittest
 # from django.test import Client
 from django.test import TestCase
-from django.core.exceptions import ObjectDoesNotExist
 from task_manager.users.models import CustomUser
 from django.urls import reverse, reverse_lazy
 from . import get_content
@@ -33,14 +32,6 @@ class UsersTest(TestCase):
         new_user = self.dump_data.get('users').get('new')
         response = self.client.post(reverse_lazy('user_create'), data=new_user,
                                     follow=True)
-        try:
-            CustomUser.objects.get(username=new_user['username'])
-            user_created = True
-        except ObjectDoesNotExist:
-            print('ObjectDoesNotExist')
-            user_created = False
-        self.assertTrue(user_created)
-
         created_user = CustomUser.objects.get(id=new_user.get('pk'))
         self.assertRedirects(response, reverse('login'))
         self.assertEqual(created_user.username, new_user.get('username'))
@@ -53,20 +44,27 @@ class UsersTest(TestCase):
         updated_user = self.dump_data.get('users').get('updated')
         print(updated_user, 'updated_user!')
 
-        data = {
-            "pk": 1,
-            "first_name": "John",
-            "last_name": "Stark",
-            "username": "wolf",
-            "password1": "Parol123",
-            "password2": "Parol123"
-        }
+        # try to change another user
+        print(CustomUser.objects.get(id=2), 'pk2')
+        self.client.force_login(user=CustomUser.objects.get(id=2))
+        response = self.client.get(reverse('user_update',
+                                   args=[exist_user.pk]),
+                                   updated_user,
+                                   follow=True)
+        print(response, 'response')
+        
+        not_updated_user = CustomUser.objects.get(id=exist_user.pk)
+        print(not_updated_user, 'not_updated_user')
+
+        self.assertRedirects(response, reverse('users_index'))
+        self.assertEqual(not_updated_user.last_name, exist_user.last_name)
+        self.assertContains(response, _('You cannot edit other users!'))
 
         # logged in
         self.client.force_login(user=exist_user)
         response = self.client.post(reverse('user_update',
                                             args=[exist_user.pk]),
-                                    data,
+                                    updated_user,
                                     follow=True)
         updated_user_added = CustomUser.objects.get(id=exist_user.pk)
         print(updated_user_added.last_name, 'updated_user_added')

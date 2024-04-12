@@ -3,10 +3,10 @@ from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin
-
+from django.http import HttpResponse
 
 class AccessCheck(UserPassesTestMixin):
-    login_url = reverse_lazy('users_index')
+    url = reverse_lazy('users_index')
     permission_denied_message =\
         _("You do not have permission to change another user.")
 
@@ -14,5 +14,8 @@ class AccessCheck(UserPassesTestMixin):
         return self.get_object() == self.request.user
 
     def handle_no_permission(self):
-        messages.error(self.request, self.permission_denied_message)
-        return redirect(self.login_url)
+        if not self.test_func():
+            messages.warning(self.request,
+                             self.permission_denied_message)
+            return redirect(self.url)
+        return super().handle_no_permission()
