@@ -52,7 +52,7 @@ class UsersTest(TestCase):
                                    updated_user,
                                    follow=True)
         print(response, 'response')
-        
+
         not_updated_user = CustomUser.objects.get(id=exist_user.pk)
         print(not_updated_user, 'not_updated_user')
 
