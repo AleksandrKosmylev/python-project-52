@@ -5,6 +5,7 @@ from task_manager.users.models import CustomUser
 from django.urls import reverse, reverse_lazy
 from . import get_content
 from django.utils.translation import gettext_lazy as _
+from django.core.exceptions import ObjectDoesNotExist
 
 
 class UsersTest(TestCase):
@@ -40,25 +41,24 @@ class UsersTest(TestCase):
 
     def test_update(self):
         exist_user = CustomUser.objects.get(id=1)
-        print(exist_user.last_name, 'exist_user last name')
         updated_user = self.dump_data.get('users').get('updated')
-        print(updated_user, 'updated_user!')
+        # print(updated_user, 'updated_user!!!!!!!!')
 
         # try to change another user
-        print(CustomUser.objects.get(id=2), 'pk2')
+        # print(CustomUser.objects.get(id=2), 'pk2')
         self.client.force_login(user=CustomUser.objects.get(id=2))
         response = self.client.get(reverse('user_update',
                                    args=[exist_user.pk]),
                                    updated_user,
                                    follow=True)
-        print(response, 'response')
+        # print(response, 'response')
 
         not_updated_user = CustomUser.objects.get(id=exist_user.pk)
-        print(not_updated_user, 'not_updated_user')
+        # print(not_updated_user, 'not_updated_user')
 
         self.assertRedirects(response, reverse('users_index'))
         self.assertEqual(not_updated_user.last_name, exist_user.last_name)
-        self.assertContains(response, _('You cannot edit other users!'))
+        self.assertContains(response, _("You do not have permission to change another user."))
 
         # logged in
         self.client.force_login(user=exist_user)
@@ -67,15 +67,15 @@ class UsersTest(TestCase):
                                     updated_user,
                                     follow=True)
         updated_user_added = CustomUser.objects.get(id=exist_user.pk)
-        print(updated_user_added.last_name, 'updated_user_added')
+
+        # print(updated_user_added, 'updated_user_added')
         self.assertEqual(updated_user_added.last_name, 'Stark')
         self.assertContains(response, _('Successfully updated!'))
         self.assertRedirects(response, reverse('users_index'))
 
-    """
     def test_delete(self):
         exist_user = CustomUser.objects.get(id=1)
-
+        # print(exist_user, 'exist_user')
         # try to change another user
         self.client.force_login(user=CustomUser.objects.get(id=2))
         response = self.client.get(reverse('user_delete',
@@ -84,29 +84,15 @@ class UsersTest(TestCase):
 
         self.assertRedirects(response, reverse('users_index'))
         self.assertEqual(exist_user.first_name, 'John')
-        self.assertContains(response, _("You cannot delete other users!"))
+        self.assertContains(response, _("You do not have permission to change another user."))
 
         # logged in
         self.client.force_login(user=exist_user)
-        response = self.client.post(reverse('users_delete',
+        response = self.client.post(reverse('user_delete',
                                             args=[exist_user.pk]),
                                     follow=True)
 
         self.assertRedirects(response, reverse('users_index'))
-        self.assertContains(response, _('Successfully deleted!'))
+        self.assertContains(response, _("User successfully deleted!"))
         with self.assertRaises(ObjectDoesNotExist):
             CustomUser.objects.get(id=1)
-
-    """
-
-
-"""
-user_data = {
-    "pk": 3,
-    "first_name": "Luke",
-    "username": "neo",
-    "last_name": "Skywalker",
-    "password1": "Parol123",
-    "password2": "Parol123"
-}
-"""

@@ -24,7 +24,7 @@
             "pk": 1,
             "first_name": "John",
             "last_name": "Stark",
-            "username": "wolf",
+            "username": "not_wolf",
             "password1": "Parol123",
             "password2": "Parol123"
         }
