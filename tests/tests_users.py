@@ -1,12 +1,11 @@
-import unittest
-from django.test import Client
+# import unittest
+# from django.test import Client
 from django.test import TestCase
 from django.core.exceptions import ObjectDoesNotExist
 from task_manager.users.models import CustomUser
 from django.urls import reverse, reverse_lazy
 from . import get_content
 from django.utils.translation import gettext_lazy as _
-
 
 
 class UsersTest(TestCase):
@@ -28,7 +27,6 @@ class UsersTest(TestCase):
             ordered=False,
         )
 
-
     def test_create(self):
         response = self.client.get(reverse('user_create'))
         self.assertEqual(response.status_code, 200)
@@ -48,7 +46,6 @@ class UsersTest(TestCase):
         self.assertEqual(created_user.username, new_user.get('username'))
         self.assertContains(response, _('Successfully registered!'))
         # print(CustomUser.objects.all())
-
 
     def test_update(self):
         exist_user = CustomUser.objects.get(id=1)
@@ -76,7 +73,7 @@ class UsersTest(TestCase):
         self.assertEqual(updated_user_added.last_name, 'Stark')
         self.assertContains(response, _('Successfully updated!'))
         self.assertRedirects(response, reverse('users_index'))
-        
+
     """
     def test_delete(self):
         exist_user = CustomUser.objects.get(id=1)
