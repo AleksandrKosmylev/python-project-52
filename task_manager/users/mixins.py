@@ -3,7 +3,7 @@ from django.shortcuts import redirect
 from django.utils.translation import gettext_lazy as _
 from django.contrib import messages
 from django.contrib.auth.mixins import UserPassesTestMixin
-from django.http import HttpResponse
+
 
 class AccessCheck(UserPassesTestMixin):
     url = reverse_lazy('users_index')
