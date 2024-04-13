@@ -1,4 +1,4 @@
-name: tests_coverage
+name: run_tests
 
 on:
   - push
@@ -7,34 +7,37 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version: [3.10.12]
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v3
+
+      - name: Install python
+        uses: actions/setup-python@v3
         with:
-          python-version: ${{ matrix.python-version }}
-        # make depends on poetry
+          python-version: 3.11
+
       - name: Install dependencies
         run: |
           pip install poetry
           make install
-      - name: Run linter
-        run: |
-          make lint
+
       - name: Run tests
         env:
+          DATABASE_URL: sqlite:///db.sqlite3
+          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
         run: |
           make test
-      - name: Test & publish code coverage
+          make test_coverage
+
+      - name: Run code coverage
         uses: paambaati/codeclimate-action@v5.0.0
-        if: github.ref_name == 'main'
         env:
-          SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          DATABASE_URL: sqlite:///db.sqlite3
           CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
+          SECRET_KEY: ${{ secrets.SECRET_KEY }}
         with:
-          coverageCommand: make test-coverage
+          coverageCommand: make test_coverage
           debug: true
+
+      - name: Run linter
+        run: make lint

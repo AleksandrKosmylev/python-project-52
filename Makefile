@@ -10,7 +10,8 @@ test:
 run:
 	python manage.py runserver
 
-test-coverage:
-	poetry run coverage run ./manage.py test
-	poetry run coverage xml
+test_coverage:
+	poetry run coverage run manage.py test
+	poetry run coverage report -m --include=task_manager/* --omit=task_manager/settings.py
+	poetry run coverage xml --include=task_manager/* --omit=task_manager/settings.py
 
