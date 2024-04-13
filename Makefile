@@ -1,9 +1,16 @@
+install:
+	poetry install
+
 lint:
 	poetry run flake8 task_manager
 
 test:
-	python manage.py test
+	poetry run python manage.py test
 
 run:
 	python manage.py runserver
+
+test-coverage:
+	poetry run coverage run ./manage.py test
+	poetry run coverage xml
 

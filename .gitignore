@@ -2,3 +2,4 @@
 /.env
 /questions
 *.sqlite3
+/.coverage
