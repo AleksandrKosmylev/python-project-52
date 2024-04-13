@@ -38,7 +38,7 @@ class StatusUpdateView(CustomLoginRequiredMixin,
         'btn_text': _('Update'),
         'btn_class': 'btn-primary'}
     success_url = reverse_lazy('statuses')
-    success_message = _('Status successfully update!')
+    success_message = _('Status successfully updated!')
 
 
 class StatusDeleteView(CustomLoginRequiredMixin,

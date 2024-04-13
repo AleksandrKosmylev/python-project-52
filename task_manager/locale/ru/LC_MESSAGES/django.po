@@ -86,7 +86,7 @@ msgid "Update status"
 msgstr "Изменение статуса"
 
 #: statuses/views.py:41
-msgid "Status successfully update!"
+msgid "Status successfully updated!"
 msgstr "Статус успешно изменен"
 
 #: statuses/views.py:51
