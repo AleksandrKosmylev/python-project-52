@@ -66,4 +66,4 @@ class TaskDeleteView(CustomLoginRequiredMixin,
         'btn_class': 'btn-danger'}
     template_name = 'form.html'
     success_url = reverse_lazy('tasks')
-    success_message = _("Task successfully deleted!")
+    success_message = _("Task successfully deleted")

@@ -154,7 +154,7 @@ msgid "Delete Task"
 msgstr "Удаление задачи"
 
 #: tasks/views.py:69
-msgid "Task successfully deleted!"
+msgid "Task successfully deleted"
 msgstr "Задача успешно удалена"
 
 #: templates/labels/labels.html:20
