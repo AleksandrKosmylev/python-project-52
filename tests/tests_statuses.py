@@ -30,8 +30,6 @@ class StatusesTestCase(TestCase):
             ordered=False,
         )
 
-
-
     def test_create(self):
         response = self.client.get(reverse('status_create'))
         self.assertEqual(response.status_code, 200)
@@ -44,7 +42,6 @@ class StatusesTestCase(TestCase):
         self.assertEqual(created_status.name, new_status.get('name'))
         self.assertRedirects(response, reverse('statuses'))
         self.assertContains(response, _('Status successfully added!'))
-
 
     def test_update(self):
         exist_status = Status.objects.get(pk=1)
@@ -63,7 +60,6 @@ class StatusesTestCase(TestCase):
         self.assertEqual(updated_status.name, new_status.get('name'))
         self.assertContains(response, _('Status successfully updated!'))
 
- 
     def test_delete(self):
         exist_status = Status.objects.get(id=2)
         response = self.client.post(reverse('status_delete',
@@ -74,4 +70,3 @@ class StatusesTestCase(TestCase):
         self.assertContains(response, _('Status successfully deleted!'))
         with self.assertRaises(ObjectDoesNotExist):
             Status.objects.get(id=2)
-
