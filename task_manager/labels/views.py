@@ -36,7 +36,7 @@ class LabelUpdateView(CustomLoginRequiredMixin, SuccessMessageMixin, UpdateView)
         'btn_text': _('Update'),
         'btn_class': 'btn-primary'}
     success_url = reverse_lazy('labels')
-    success_message = _('Label successfully update!')
+    success_message = _('Label successfully updated!')
 
 
 class LabelDeleteView(CustomLoginRequiredMixin,

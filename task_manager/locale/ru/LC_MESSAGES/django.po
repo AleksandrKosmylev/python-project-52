@@ -40,7 +40,7 @@ msgstr "Метка успешно создана"
 
 #: labels/views.py:35
 msgid "Update label"
-msgstr "Метка успешно создана"
+msgstr "Изменение метки"
 
 #: labels/views.py:36 statuses/views.py:38 tasks/views.py:51
 #: templates/labels/labels.html:37 templates/statuses/statuses.html:37
@@ -50,7 +50,7 @@ msgid "Update"
 msgstr "Изменить"
 
 #: labels/views.py:39
-msgid "Label successfully update!"
+msgid "Label successfully updated!"
 msgstr "Метка успешно изменена"
 
 #: labels/views.py:47 statuses/views.py:50 tasks/views.py:63 users/views.py:53

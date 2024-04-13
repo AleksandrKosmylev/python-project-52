@@ -2,13 +2,13 @@ from django.core.exceptions import ObjectDoesNotExist
 from task_manager.statuses.models import Status
 from django.urls import reverse
 from task_manager.users.models import CustomUser
-# from tests.test_auth import AuthTestCase
+from tests.test_auth import AuthTestCase
 from . import get_content
 from django.utils.translation import gettext_lazy as _
-from django.test import TestCase
+#from django.test import TestCase
 
 
-class StatusesTestCase(TestCase):
+class StatusesTestCase(AuthTestCase):
     fixtures = ['tests/fixtures/db.json']
     page = 'statuses'
 

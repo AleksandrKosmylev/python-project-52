@@ -6,7 +6,7 @@ from django.utils.translation import gettext as _
 
 
 class Task(models.Model):
-    name = models.CharField(max_length=255, unique=True, verbose_name=_('Name'))
+    name = models.CharField(max_length=255, unique=True, verbose_name=_('Name'))  # noqa: E501
     description = models.TextField(blank=True, verbose_name=_('Description'))
     author = models.ForeignKey(CustomUser,
                                on_delete=models.PROTECT,
