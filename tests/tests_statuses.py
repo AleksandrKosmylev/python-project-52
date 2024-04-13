@@ -5,7 +5,6 @@ from task_manager.users.models import CustomUser
 from tests.test_auth import AuthTestCase
 from . import get_content
 from django.utils.translation import gettext_lazy as _
-#from django.test import TestCase
 
 
 class StatusesTestCase(AuthTestCase):
