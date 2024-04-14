@@ -1,5 +1,3 @@
-# import unittest
-# from django.test import Client
 from django.test import TestCase
 from task_manager.users.models import CustomUser
 from django.urls import reverse, reverse_lazy
@@ -37,24 +35,19 @@ class UsersTest(TestCase):
         self.assertRedirects(response, reverse('login'))
         self.assertEqual(created_user.username, new_user.get('username'))
         self.assertContains(response, _('Successfully registered!'))
-        # print(CustomUser.objects.all())
 
     def test_update(self):
         exist_user = CustomUser.objects.get(id=1)
         updated_user = self.dump_data.get('users').get('updated')
-        # print(updated_user, 'updated_user!!!!!!!!')
 
         # try to change another user
-        # print(CustomUser.objects.get(id=2), 'pk2')
         self.client.force_login(user=CustomUser.objects.get(id=2))
         response = self.client.get(reverse('user_update',
                                    args=[exist_user.pk]),
                                    updated_user,
                                    follow=True)
-        # print(response, 'response')
 
         not_updated_user = CustomUser.objects.get(id=exist_user.pk)
-        # print(not_updated_user, 'not_updated_user')
 
         self.assertRedirects(response, reverse('users_index'))
         self.assertEqual(not_updated_user.last_name, exist_user.last_name)
@@ -68,14 +61,12 @@ class UsersTest(TestCase):
                                     follow=True)
         updated_user_added = CustomUser.objects.get(id=exist_user.pk)
 
-        # print(updated_user_added, 'updated_user_added')
         self.assertEqual(updated_user_added.last_name, 'Stark')
         self.assertContains(response, _('Successfully updated!'))
         self.assertRedirects(response, reverse('users_index'))
 
     def test_delete(self):
         exist_user = CustomUser.objects.get(id=1)
-        # print(exist_user, 'exist_user')
         # try to change another user
         self.client.force_login(user=CustomUser.objects.get(id=2))
         response = self.client.get(reverse('user_delete',

@@ -5,7 +5,6 @@ from django.urls import reverse_lazy
 from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.contrib.messages.views import SuccessMessageMixin
 from task_manager.mixins import CustomLoginRequiredMixin
-# from django.utils.translation import gettext_lazy as _
 from django.utils.translation import gettext as _
 from django_filters.views import FilterView
 from task_manager.tasks.filter import TaskFilter

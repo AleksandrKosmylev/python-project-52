@@ -6,10 +6,6 @@ class CustomUser(AbstractUser):
 
     class Meta:
         ordering = ["id"]
-    """
-    def __str__(self):
-        return self.username
-    """
 
     def __str__(self):
         return self.get_full_name()
