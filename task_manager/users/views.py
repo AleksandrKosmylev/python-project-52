@@ -7,7 +7,6 @@ from django.utils.translation import gettext as _
 from task_manager.users.models import CustomUser
 from task_manager.mixins import CustomLoginRequiredMixin
 from task_manager.users.mixins import AccessCheck
-from django.http import HttpResponse
 
 
 class IndexView(ListView):
@@ -55,4 +54,3 @@ class UserDeleteView(CustomLoginRequiredMixin,
     template_name = 'form.html'
     success_url = reverse_lazy('users_index')
     success_message = _("User successfully deleted!")
-
