@@ -56,8 +56,3 @@ class UserDeleteView(CustomLoginRequiredMixin,
     success_url = reverse_lazy('users_index')
     success_message = _("User successfully deleted!")
 
-
-def index(request):
-    a = None
-    a.hello()  # Creating an error with an invalid line of code
-    return HttpResponse("Hello, world. You're at the pollapp index.")
