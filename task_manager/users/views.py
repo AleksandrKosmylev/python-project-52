@@ -1,4 +1,3 @@
-# flake8: noqa: F401
 from task_manager.users.forms import UsersForm
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.contrib.messages.views import SuccessMessageMixin

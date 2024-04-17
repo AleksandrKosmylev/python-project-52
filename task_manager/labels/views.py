@@ -1,4 +1,3 @@
-# flake8: noqa: E501
 from task_manager.labels.models import Labels
 from task_manager.labels.forms import LabelsForm
 from django.views.generic import ListView, CreateView, UpdateView, DeleteView
