@@ -3,3 +3,5 @@
 /questions
 *.sqlite3
 /.coverage
+/.__pycache__
+
